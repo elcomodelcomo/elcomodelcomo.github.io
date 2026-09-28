@@ -1,12 +1,13 @@
 /* Vista «Por episodio»: línea de tiempo de menciones */
-.episode{border-top:3px solid var(--ink);margin-top:2rem;padding-top:.8rem}
-.episode h2{font-family:var(--sans);font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.05;letter-spacing:-.02em;margin:0}
-.episode .sub{margin:.3rem 0 .6rem;color:var(--muted)}
-.episode .meta{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin-bottom:.6rem}
-.episode details summary{font-family:var(--sans);font-size:.95rem;cursor:pointer;color:var(--blue);padding:.3rem 0}
+.episode{border-top:2px solid var(--accent);margin-top:2.2rem;padding-top:.9rem}
+.episode h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:.95;margin:0}
+.episode .sub{margin:.35rem 0 .6rem;color:var(--muted)}
+.episode .meta{font-size:.9rem;color:var(--muted);margin-bottom:.6rem}
+.episode .meta b{color:var(--accent);font-weight:600}
+.episode details summary{font-size:.95rem;cursor:pointer;color:var(--accent);padding:.3rem 0}
 .tl{list-style:none;margin:.4rem 0 0;padding:0}
-.tl li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem;padding:.35rem 0;border-bottom:1px dotted var(--rule);line-height:1.45}
-.tl .ref{all:unset;cursor:pointer;font-weight:600;color:var(--ink)}
-.tl .ref:hover{text-decoration:underline}
-.tl .ref:focus-visible{outline:3px solid var(--blue)}
-.tl .ctx{color:var(--muted);font-size:.95rem}
+.tl li{display:grid;grid-template-columns:4.8rem 1fr;gap:.6rem;padding:.4rem 0;border-bottom:1px solid var(--line);line-height:1.45}
+.tl .ref{all:unset;cursor:pointer;font-weight:600;color:var(--text)}
+.tl .ref:hover{color:var(--accent)}
+.tl .ref:focus-visible{outline:2px solid var(--accent)}
+.ctx{color:var(--muted);font-size:.95rem}

@@ -1,36 +1,37 @@
 /* Vista «Índice A–Z»: letras, entradas y ficha desplegada */
-section.letter{display:grid;grid-template-columns:4.5rem 1fr;gap:0 1rem;border-top:1px solid var(--rule);padding-top:.5rem;margin-top:1rem}
-section.letter>h2{font-family:var(--sans);font-weight:800;font-size:3.2rem;line-height:1;margin:0;color:var(--blue);position:sticky;top:8.5rem;align-self:start}
+section.letter{display:grid;grid-template-columns:4.5rem 1fr;gap:0 1rem;border-top:1px solid var(--line);padding-top:.5rem;margin-top:1rem}
+section.letter>h2{font-family:var(--display);font-weight:800;font-size:4rem;line-height:.85;margin:.2rem 0 0;color:var(--accent);position:sticky;top:10rem;align-self:start}
 ul.entries{list-style:none;margin:0;padding:0}
 @media (max-width:600px){
   section.letter{grid-template-columns:1fr}
-  section.letter>h2{position:static;font-size:2.4rem}
+  section.letter>h2{position:static;font-size:3rem}
 }
 
-.entry{border-bottom:1px dotted var(--rule)}
-.entry>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;width:100%;padding:.6rem .2rem;cursor:pointer}
-.entry>button:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
-.entry>button:hover .name{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-.name{font-weight:600;font-size:1.08rem}
-.central .name{background:linear-gradient(transparent 55%,var(--hi-soft) 55%)}
-.kind{font-style:italic;color:var(--muted);font-weight:400;font-size:.95rem}
-.desc{grid-column:1;color:var(--muted);font-size:.95rem;line-height:1.45}
-.count{grid-row:1;grid-column:2;font-family:var(--sans);font-size:.85rem;color:var(--muted);white-space:nowrap;text-align:right}
-.detail{display:none;padding:.3rem .2rem 1.2rem}
+.entry{border-bottom:1px solid var(--line)}
+.entry>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;width:100%;padding:.65rem .2rem;cursor:pointer}
+.entry>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.entry>button:hover .name{color:var(--accent)}
+.name{font-weight:600;font-size:1.06rem}
+.central .name{box-shadow:inset 0 -.38em var(--accent-soft)}
+.kind{color:var(--muted);font-weight:400;font-size:.92rem}
+.desc{grid-column:1;color:var(--muted);font-size:.93rem;line-height:1.45}
+.count{grid-row:1;grid-column:2;font-size:.85rem;color:var(--muted);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+
+.detail{display:none;padding:.3rem .2rem 1.3rem}
 .entry.open .detail{display:grid;grid-template-columns:auto 1fr;gap:1.2rem}
-.detail .pic{width:120px}
-.detail .pic img{display:block;width:120px;height:auto;max-height:160px;object-fit:cover;border:1px solid var(--rule);background:var(--paper-2)}
-.detail .pic:empty{display:none}
+.pic{width:120px}
+.pic img{display:block;width:100%;height:auto;max-height:180px;object-fit:cover;background:var(--surface-2)}
+.pic.bandera img{object-fit:contain;background:none}
+.pic:empty{display:none}
 .entry.open .detail:has(.pic:empty){grid-template-columns:1fr}
-.facts{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:0 0 .6rem}
-.facts a{margin-right:.8rem}
-.ep{margin:.8rem 0 0}
-.ep h4{font-family:var(--sans);font-weight:600;font-size:.95rem;margin:0 0 .25rem}
+.facts{font-size:.9rem;color:var(--muted);margin:0 0 .6rem}
+.facts a{margin-right:.9rem}
+.ep{margin:.9rem 0 0}
+.ep h4{font-weight:600;font-size:.95rem;margin:0 0 .3rem}
 .ep h4 small{font-weight:400;color:var(--muted)}
-.ment{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem;font-size:.95rem;line-height:1.45;padding:.2rem 0}
+.ment{display:grid;grid-template-columns:4.8rem 1fr;gap:.6rem;font-size:.95rem;line-height:1.45;padding:.2rem 0}
 @media (max-width:600px){
   .entry.open .detail{grid-template-columns:1fr}
-  .detail .pic,.detail .pic img{width:96px}
+  .pic{width:110px}
 }
-
-@media (prefers-reduced-motion:no-preference){.entry.open .detail{animation:open .18s ease-out}@keyframes open{from{opacity:0;transform:translateY(-4px)}}}
+@media (prefers-reduced-motion:no-preference){.entry.open .detail{animation:abrir .18s ease-out}@keyframes abrir{from{opacity:0;transform:translateY(-4px)}}}

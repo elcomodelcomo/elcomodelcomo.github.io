@@ -1,19 +1,20 @@
-/* Tokens de diseño: colores, tipografías y modo oscuro */
+/* Tokens de diseño. Paleta sacada del logo de Cómo: negro y verde fósforo. */
 :root{
-  --paper:#EEF0EA; --paper-2:#E3E6DE; --ink:#1C1E2B; --muted:#62675D; --rule:#C9CDC2;
-  --blue:#2B3A8C; --hi:#EEDC3A; --hi-soft:rgba(238,220,58,.45);
-  --sans:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --serif:Literata, Georgia, "Times New Roman", serif;
+  --bg:#020402;          /* fondo, el negro del logo */
+  --surface:#0A110A;     /* paneles, mosaico, diálogo */
+  --surface-2:#132013;   /* países sin mención en el mapa, placeholders */
+  --text:#E8F1E5;        /* texto principal: blanco verdoso, no verde puro */
+  --muted:#8FA08B;       /* texto secundario */
+  --line:#223122;        /* separadores */
+  --accent:#00FF1D;      /* el verde exacto del logo */
+  --accent-ink:#021A05;  /* texto sobre fondo verde */
+  --accent-soft:rgba(0,255,29,.16);
+
+  --display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+
+  color-scheme:dark;
   box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --paper:#16181F; --paper-2:#1F222B; --ink:#E6E7DF; --muted:#9A9F93; --rule:#343845;
-    --blue:#9EAEFF; --hi:#C9B820; --hi-soft:rgba(201,184,32,.35);
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#16181F; --paper-2:#1F222B; --ink:#E6E7DF; --muted:#9A9F93; --rule:#343845;
-  --blue:#9EAEFF; --hi:#C9B820; --hi-soft:rgba(201,184,32,.35);
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }

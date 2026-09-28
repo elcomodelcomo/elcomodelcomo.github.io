@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <meta name="theme-color" content="#020402">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Índice de Cómo: todo lo que se menciona en el podcast</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔖</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Instrument+Sans:wght@400;600&display=swap">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -16,13 +17,18 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/indice.css">
   <link rel="stylesheet" href="css/episodios.css">
+  <link rel="stylesheet" href="css/mosaico.css">
+  <link rel="stylesheet" href="css/mapa.css">
 
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
   <header class="top wrap">
-    <h1>Todo lo que sale en Cómo</h1>
-    <p id="intro">Cargando referencias…</p>
+    <h1><img src="img/logo.png" alt="Cómo" width="274" height="245"></h1>
+    <div>
+      <p class="lema">Todo lo que se menciona en el podcast</p>
+      <p id="intro">Cargando referencias…</p>
+    </div>
   </header>
 
   <div class="controls">
@@ -33,8 +39,10 @@
         <label class="sr" for="ep">Episodio</label>
         <select id="ep"><option value="">Todos los episodios</option></select>
         <div class="seg" role="group" aria-label="Vista">
-          <button class="btn" data-view="indice" aria-pressed="true">Índice A–Z</button>
-          <button class="btn" data-view="episodios" aria-pressed="false">Por episodio</button>
+          <button class="btn" data-view="indice" aria-pressed="true">Índice</button>
+          <button class="btn" data-view="mosaico" aria-pressed="false">Mosaico</button>
+          <button class="btn" data-view="episodios" aria-pressed="false">Episodios</button>
+          <button class="btn" data-view="mapa" aria-pressed="false">Mapa</button>
         </div>
       </div>
       <div class="row types" id="types" role="group" aria-label="Filtrar por tipo"></div>
@@ -48,10 +56,7 @@
       <p class="status" id="status" aria-live="polite"></p>
       <div class="row">
         <label class="sr" for="sort">Ordenar</label>
-        <select id="sort">
-          <option value="az">Orden alfabético</option>
-          <option value="menciones">Más mencionadas primero</option>
-        </select>
+        <select id="sort"></select>
         <label class="sr" for="rel">Relevancia</label>
         <select id="rel">
           <option value="">Cualquier relevancia</option>
@@ -61,7 +66,7 @@
       </div>
     </div>
 
-    <div class="legend">
+    <div class="legend" id="legend">
       <span><b class="ts central">12:34</b> tema central</span>
       <span><b class="ts">12:34</b> secundaria</span>
       <span><b class="ts de_pasada">12:34</b> de pasada</span>
@@ -71,11 +76,19 @@
   </main>
 
   <footer class="wrap">
-    <p>Datos generados con el cuaderno de extracción a partir de las transcripciones del
+    <p>Web hecha por un oyente, sin relación oficial con el podcast; el logo pertenece a Cómo. Datos generados con el cuaderno de extracción a partir de las transcripciones del
       <a href="https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw" target="_blank" rel="noopener">canal de Cómo en YouTube</a>.
       Las referencias marcadas «por revisar» tienen una identificación dudosa.</p>
     <p><label for="file">Cargar otro portal_referencias.json</label><input id="file" type="file" accept=".json,application/json">
       para ver una versión más reciente sin volver a publicar la página.</p>
   </footer>
+
+  <dialog class="ficha" id="ficha" aria-labelledby="ficha-titulo">
+    <div class="ficha-cab">
+      <div><h2 id="ficha-titulo"></h2><p></p></div>
+      <button class="btn" data-cerrar>Cerrar</button>
+    </div>
+    <div class="ficha-cuerpo"></div>
+  </dialog>
 </body>
 </html>

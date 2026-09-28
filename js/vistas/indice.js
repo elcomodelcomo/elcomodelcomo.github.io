@@ -1,20 +1,19 @@
 // Vista «Índice A–Z»: agrupa por letra inicial o lista por número de menciones.
-import { estado, mencionesVisibles } from "../filtros.js";
+import { ordenActual } from "../filtros.js";
 import { entradaHTML } from "../plantillas/referencia.js";
-import { compararES } from "../utils.js";
+import { ordenar } from "./orden.js";
 
 const LETRAS = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 const ancla = (l) => `l-${l === "#" ? "num" : l}`;
 
 export function pintarIndice(lista, { contenedor, barraLetras }) {
-  if (estado.orden === "menciones") {
-    lista.sort((a, b) => mencionesVisibles(b).length - mencionesVisibles(a).length || compararES(a.nombre, b.nombre));
+  ordenar(lista);
+  if (ordenActual() !== "az") {
     barraLetras.innerHTML = "";
     contenedor.innerHTML = `<ul class="entries">${lista.map(entradaHTML).join("")}</ul>`;
     return;
   }
 
-  lista.sort((a, b) => compararES(a.nombre, b.nombre));
   const grupos = {};
   for (const r of lista) (grupos[r._letra] ||= []).push(r);
 

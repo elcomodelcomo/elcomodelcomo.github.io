@@ -1,6 +1,6 @@
 // Carga del JSON y preparación de las estructuras que usa la interfaz.
 // Aquí no se toca el DOM: solo datos.
-import { RUTA_DATOS } from "./config.js";
+import { RUTA_DATOS, RUTA_MAPA } from "./config.js";
 import { normalizar, segundos, separarTitulo, compararES } from "./utils.js";
 
 /** Descarga el JSON publicado junto a la web. */
@@ -8,6 +8,16 @@ export async function descargarDatos(ruta = RUTA_DATOS) {
   const res = await fetch(ruta, { cache: "no-cache" });
   if (!res.ok) throw new Error(`no se encuentra ${ruta} (HTTP ${res.status})`);
   return res.json();
+}
+
+let mapaPendiente = null;
+/** Descarga el mapa del mundo una sola vez (solo cuando se abre la vista «Mapa»). */
+export function descargarMapa() {
+  mapaPendiente ||= fetch(RUTA_MAPA).then((res) => {
+    if (!res.ok) throw new Error(`no se encuentra ${RUTA_MAPA}`);
+    return res.json();
+  }).catch((err) => { mapaPendiente = null; throw err; });
+  return mapaPendiente;
 }
 
 /** Lee un JSON elegido por el usuario con el selector de archivos. */

@@ -1,0 +1,23 @@
+/* Vista «Mapa»: países mencionados */
+.mapa{margin:1rem 0 .5rem;overflow-x:auto}
+.mapa svg{display:block;width:100%;min-width:560px;height:auto}
+.mapa .pais{fill:var(--surface-2);stroke:var(--bg);stroke-width:.5}
+.mapa .fondo{fill:var(--surface-2)}
+.mapa .con{fill:var(--accent);cursor:pointer}
+.mapa .con:hover,.mapa .con:focus-visible{stroke:var(--text);stroke-width:1.5;outline:none}
+.mapa circle.con{stroke:var(--bg);stroke-width:1}
+.escala{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--muted)}
+.escala i{display:inline-block;width:1.4rem;height:.7rem;background:var(--accent)}
+
+.paises{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:0 2rem}
+.paises li{border-bottom:1px solid var(--line)}
+.paises button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:2.4rem 1fr auto;gap:.7rem;align-items:center;width:100%;padding:.5rem 0;cursor:pointer}
+.paises button:hover .n{color:var(--accent)}
+.paises button:focus-visible{outline:2px solid var(--accent)}
+.paises img{width:2.4rem;height:1.6rem;object-fit:contain;object-position:left center}
+.paises .sin-bandera{width:2.4rem;height:1.6rem;background:var(--surface-2)}
+.paises .n{font-weight:600}
+.paises .veces{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.paises .barra{grid-column:2/4;height:3px;background:var(--line)}
+.paises .barra i{display:block;height:100%;background:var(--accent)}
+.sin-mapa{color:var(--muted);font-size:.9rem;margin-top:1rem}

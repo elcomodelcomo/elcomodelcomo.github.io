@@ -1,20 +1,23 @@
 // Estado de la interfaz y lógica de filtrado. Sin acceso al DOM.
-import { RELEVANCIA } from "./config.js";
+import { ORDENES, RELEVANCIA } from "./config.js";
 import { normalizar } from "./utils.js";
 
 /** Datos cargados (se rellenan desde main.js). */
-export const datos = { referencias: [], episodios: [], porId: {} };
+export const datos = { referencias: [], episodios: [], porId: {}, mapa: null };
 
 /** Lo que el usuario tiene seleccionado en cada momento. */
 export const estado = {
   busqueda: "",
   episodio: "",          // video_id o "" para todos
   tipos: new Set(),      // vacío = todos
-  vista: "indice",       // "indice" | "episodios"
-  orden: "az",           // "az" | "menciones"
+  vista: "indice",       // "indice" | "mosaico" | "episodios" | "mapa"
   relevancia: "",        // "" | "central" | "secundaria"
-  abiertas: new Set(),   // ids de referencias desplegadas
+  abiertas: new Set(),   // ids de referencias desplegadas en el índice
+  // Orden elegido en cada vista; empieza con la primera opción de ORDENES.
+  ordenes: Object.fromEntries(Object.entries(ORDENES).map(([v, ops]) => [v, ops[0]?.[0] || ""])),
 };
+
+export const ordenActual = () => estado.ordenes[estado.vista];
 
 export function reiniciarFiltros() {
   Object.assign(estado, { busqueda: "", episodio: "", relevancia: "" });
@@ -24,9 +27,13 @@ export function reiniciarFiltros() {
 /** Relevancia mínima (numérica) según el filtro elegido. */
 export const relevanciaMinima = () => RELEVANCIA[estado.relevancia] || 0;
 
-/** Menciones de una referencia teniendo en cuenta el episodio elegido. */
-export const mencionesVisibles = (r) =>
-  estado.episodio ? r.menciones.filter((m) => m.video_id === estado.episodio) : r.menciones;
+/** Menciones de una referencia que cumplen el filtro de episodio y de relevancia. */
+export function mencionesVisibles(r) {
+  const minima = relevanciaMinima();
+  return r.menciones.filter((m) =>
+    (!estado.episodio || m.video_id === estado.episodio) && (RELEVANCIA[m.relevancia] || 0) >= minima
+  );
+}
 
 /**
  * Referencias que cumplen los filtros actuales.
@@ -34,12 +41,11 @@ export const mencionesVisibles = (r) =>
  */
 export function referenciasFiltradas({ ignorarTipo = false } = {}) {
   const q = normalizar(estado.busqueda.trim());
-  const minima = relevanciaMinima();
   return datos.referencias.filter((r) => {
     if (q && !r._texto.includes(q)) return false;
-    if (estado.episodio && !r._episodios.has(estado.episodio)) return false;
     if (!ignorarTipo && estado.tipos.size && !estado.tipos.has(r.tipo)) return false;
-    if (minima && !mencionesVisibles(r).some((m) => (RELEVANCIA[m.relevancia] || 0) >= minima)) return false;
-    return true;
+    return mencionesVisibles(r).length > 0;
   });
 }
+
+export const buscarReferencia = (id) => datos.referencias.find((r) => r.id === id);

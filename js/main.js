@@ -1,8 +1,10 @@
 // Punto de entrada: carga los datos y conecta los eventos de la interfaz.
 import { descargarDatos, leerArchivo, prepararDatos } from "./datos.js";
-import { datos, estado, reiniciarFiltros } from "./filtros.js";
+import { buscarReferencia, datos, estado, reiniciarFiltros } from "./filtros.js";
+import { vigilarImagenesRotas } from "./imagenes.js";
 import { dom, pintar, pintarCabecera, pintarError } from "./render.js";
 import { fichaHTML } from "./plantillas/referencia.js";
+import { abrirFicha } from "./componentes/dialogo.js";
 
 function usarDatos(lista) {
   Object.assign(datos, prepararDatos(lista));
@@ -12,6 +14,8 @@ function usarDatos(lista) {
   pintar();
 }
 
+vigilarImagenesRotas();
+
 // --- Filtros ------------------------------------------------------------
 let espera;
 dom.busqueda.addEventListener("input", (e) => {
@@ -19,7 +23,7 @@ dom.busqueda.addEventListener("input", (e) => {
   espera = setTimeout(() => { estado.busqueda = e.target.value; pintar(); }, 120);
 });
 dom.episodio.addEventListener("change", (e) => { estado.episodio = e.target.value; pintar(); });
-dom.orden.addEventListener("change", (e) => { estado.orden = e.target.value; pintar(); });
+dom.orden.addEventListener("change", (e) => { estado.ordenes[estado.vista] = e.target.value; pintar(); });
 dom.relevancia.addEventListener("change", (e) => { estado.relevancia = e.target.value; pintar(); });
 
 // --- Clics (delegados) ---------------------------------------------------
@@ -30,11 +34,11 @@ function alternarEntrada(boton) {
   abrir ? estado.abiertas.add(id) : estado.abiertas.delete(id);
   li.classList.toggle("open", abrir);
   boton.setAttribute("aria-expanded", abrir);
-  li.querySelector(".detail").innerHTML = abrir ? fichaHTML(datos.referencias.find((r) => r.id === id)) : "";
+  li.querySelector(".detail").innerHTML = abrir ? fichaHTML(buscarReferencia(id)) : "";
 }
 
 function irAReferencia(id) {
-  const r = datos.referencias.find((x) => x.id === id);
+  const r = buscarReferencia(id);
   if (!r) return;
   estado.vista = "indice";
   estado.busqueda = dom.busqueda.value = r.nombre;
@@ -44,8 +48,15 @@ function irAReferencia(id) {
   document.querySelector(`.entry[data-id="${CSS.escape(id)}"]`)?.scrollIntoView({ block: "center" });
 }
 
+function abrirDesde(el) {
+  const r = buscarReferencia(el.dataset.abrir);
+  if (r) abrirFicha(r);
+}
+
 document.addEventListener("click", (e) => {
   const el = e.target;
+  if (!(el instanceof Element) || el.closest("dialog")) return;
+
   const vista = el.closest("[data-view]");
   if (vista) { estado.vista = vista.dataset.view; pintar(); return; }
 
@@ -68,8 +79,20 @@ document.addEventListener("click", (e) => {
   const ir = el.closest("[data-ir-a]");
   if (ir) { irAReferencia(ir.dataset.irA); return; }
 
+  const abrir = el.closest("[data-abrir]");
+  if (abrir) { abrirDesde(abrir); return; }
+
   const entrada = el.closest(".entry > button");
   if (entrada) alternarEntrada(entrada);
+});
+
+// Los países del mapa son elementos SVG: se activan también con Intro o espacio.
+document.addEventListener("keydown", (e) => {
+  const el = e.target;
+  if ((e.key === "Enter" || e.key === " ") && el instanceof SVGElement && el.dataset.abrir) {
+    e.preventDefault();
+    abrirDesde(el);
+  }
 });
 
 // --- Cargar otro JSON desde el ordenador --------------------------------

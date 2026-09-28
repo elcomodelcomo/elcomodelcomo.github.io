@@ -1,0 +1,17 @@
+/* Piezas reutilizables: botones, chips, marcas de tiempo, etiquetas */
+select,.btn{font-family:var(--sans);font-size:.92rem;padding:.55rem .7rem;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg{display:inline-flex}
+.seg .btn{border-radius:0}
+.seg .btn:first-child{border-radius:4px 0 0 4px}
+.seg .btn:last-child{border-radius:0 4px 4px 0}
+.chip{font-family:var(--sans);font-size:.85rem;white-space:nowrap;padding:.25rem .6rem;border:1px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer}
+.chip span{color:var(--muted);margin-left:.25rem}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--paper)}
+.chip[aria-pressed="true"] span{color:inherit;opacity:.75}
+
+.ts{font-family:var(--sans);font-variant-numeric:tabular-nums;text-decoration:none;font-weight:600;padding:0 .25rem;border-radius:2px;align-self:start;justify-self:start}
+.ts:hover{text-decoration:underline}
+.ts.central{background:var(--hi);color:#1C1E2B}
+.ts.de_pasada{font-weight:400;color:var(--muted)}
+.flag{font-family:var(--sans);font-size:.75rem;color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:0 .3rem;margin-left:.35rem;vertical-align:.15em;white-space:nowrap}

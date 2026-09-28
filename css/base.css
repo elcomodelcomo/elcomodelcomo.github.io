@@ -1,0 +1,10 @@
+/* Reglas base: reset, tipografía general y utilidades */
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5.5rem)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:2px}
+img{max-width:100%}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}

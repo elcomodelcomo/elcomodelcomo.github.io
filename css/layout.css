@@ -1,0 +1,28 @@
+/* Estructura de la página: cabecera, barra de filtros, letras, pie */
+header.top{padding:3.5rem 0 1.5rem}
+header.top h1{font-family:var(--sans);font-weight:800;font-size:clamp(2.6rem,8vw,5.2rem);line-height:.92;letter-spacing:-.035em;margin:0 0 1.1rem;max-width:12ch}
+header.top p{margin:0;max-width:40rem;color:var(--muted)}
+header.top p strong{color:var(--ink);font-weight:600}
+
+.controls{position:sticky;top:0;z-index:5;background:var(--paper);padding:.75rem 0 .6rem;padding-top:calc(.75rem + env(safe-area-inset-top,0px));border-bottom:1px solid var(--rule)}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.search{flex:1 1 16rem;font:inherit;font-size:1.05rem;padding:.55rem .8rem;border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:0}
+#ep{flex:1 1 12rem;min-width:0}
+.types{margin-top:.55rem;gap:.35rem;overflow-x:auto;flex-wrap:nowrap;padding-bottom:.2rem;scrollbar-width:thin}
+
+.letters{display:flex;flex-wrap:wrap;justify-content:space-between;margin:1.5rem 0 .5rem;border-top:3px solid var(--ink)}
+.letters:empty{display:none}
+.letters a,.letters span{flex:0 0 auto;font-family:var(--sans);font-weight:800;font-size:clamp(1.25rem,2.45vw,1.95rem);line-height:1;padding:.45rem .1rem .35rem;text-decoration:none;color:var(--ink);min-width:2.2ch;text-align:center}
+.letters a:hover{background:var(--hi)}
+.letters span{color:var(--rule)}
+
+.status{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:.8rem 0}
+.legend{display:flex;flex-wrap:wrap;gap:1rem;font-family:var(--sans);font-size:.85rem;color:var(--muted);margin-bottom:1rem}
+.legend b{font-weight:600;color:var(--ink)}
+.toolbar{justify-content:space-between}
+
+.empty{padding:3rem 0;font-size:1.1rem}
+.empty button{margin-top:.8rem}
+footer{margin:4rem 0 3rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--sans);font-size:.88rem;color:var(--muted)}
+footer label{cursor:pointer;color:var(--blue);text-decoration:underline}
+footer input{position:absolute;opacity:0;width:1px;height:1px}

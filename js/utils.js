@@ -17,6 +17,16 @@ export const segundos = (minuto) =>
 /** Comparador alfabético en español (ignora tildes y mayúsculas). */
 export const compararES = new Intl.Collator("es", { sensitivity: "base" }).compare;
 
+/** ¿Empieza por una letra (con o sin tilde)? «@perfil», «1984» o «15M» no. */
+export const empiezaPorLetra = (s) => /^[a-zñ]/.test(normalizar(s));
+
+/** Orden A–Z con números y símbolos al final, como en el índice. */
+export const compararAZ = (a, b) =>
+  (empiezaPorLetra(b) - empiezaPorLetra(a)) || compararES(a, b);
+
+/** Quita signos del principio («¿», «¡», comillas, corchetes) para ordenar títulos. */
+export const sinSignosIniciales = (s) => String(s || "").replace(/^[^\p{L}\p{N}]+/u, "");
+
 /** "TÍTULO - Subtítulo" → ["TÍTULO", "Subtítulo"] */
 export function separarTitulo(titulo) {
   const t = String(titulo || "");

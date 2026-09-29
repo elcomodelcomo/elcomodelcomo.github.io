@@ -1,7 +1,7 @@
 // Carga del JSON y preparación de las estructuras que usa la interfaz.
 // Aquí no se toca el DOM: solo datos.
 import { RUTA_DATOS, RUTA_MAPA } from "./config.js";
-import { normalizar, segundos, separarTitulo, compararES } from "./utils.js";
+import { compararAZ, empiezaPorLetra, normalizar, segundos, separarTitulo, sinSignosIniciales } from "./utils.js";
 
 /** Descarga el JSON publicado junto a la web. */
 export async function descargarDatos(ruta = RUTA_DATOS) {
@@ -34,8 +34,7 @@ export function leerArchivo(archivo) {
 }
 
 function letraInicial(nombre) {
-  const c = normalizar(nombre).charAt(0);
-  return /[a-z]/.test(c) ? c.toUpperCase() : "#";
+  return empiezaPorLetra(nombre) ? normalizar(nombre).charAt(0).toUpperCase() : "#";
 }
 
 /**
@@ -70,7 +69,7 @@ export function prepararDatos(lista) {
     ep.menciones.sort((a, b) => segundos(a.mencion.minuto) - segundos(b.mencion.minuto));
     [ep.corto, ep.sub] = separarTitulo(ep.titulo);
   }
-  episodios.sort((a, b) => compararES(a.corto, b.corto));
+  episodios.sort((a, b) => compararAZ(sinSignosIniciales(a.corto), sinSignosIniciales(b.corto)));
 
   return { referencias, episodios, porId };
 }

@@ -3,7 +3,8 @@ import { ordenActual } from "../filtros.js";
 import { entradaHTML } from "../plantillas/referencia.js";
 import { ordenar } from "./orden.js";
 
-const LETRAS = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+// Números, «@perfiles» y símbolos van al final, en «#».
+const LETRAS = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ", "#"];
 const ancla = (l) => `l-${l === "#" ? "num" : l}`;
 
 export function pintarIndice(lista, { contenedor, barraLetras }) {

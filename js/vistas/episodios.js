@@ -1,7 +1,7 @@
 // Vista «Por episodio»: cada episodio con sus menciones en orden cronológico.
 import { datos, estado, mencionesVisibles, ordenActual } from "../filtros.js";
 import { marcaTiempo } from "../plantillas/referencia.js";
-import { compararES, esc, plural } from "../utils.js";
+import { compararAZ, esc, plural, sinSignosIniciales } from "../utils.js";
 
 const MAX_TEMAS = 12;
 
@@ -41,7 +41,7 @@ function episodioHTML({ ep, menciones, nReferencias }, abierto) {
 }
 
 const COMPARADORES = {
-  titulo: (a, b) => compararES(a.ep.corto, b.ep.corto),
+  titulo: (a, b) => compararAZ(sinSignosIniciales(a.ep.corto), sinSignosIniciales(b.ep.corto)),
   referencias: (a, b) => b.nReferencias - a.nReferencias || b.menciones.length - a.menciones.length,
   menciones: (a, b) => b.menciones.length - a.menciones.length || b.nReferencias - a.nReferencias,
 };

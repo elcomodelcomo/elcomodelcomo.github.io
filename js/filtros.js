@@ -24,6 +24,14 @@ export function reiniciarFiltros() {
   estado.tipos.clear();
 }
 
+/** Deja la página como al entrar: sin filtros, en el índice y con los órdenes de partida. */
+export function volverAlEstadoInicial() {
+  reiniciarFiltros();
+  estado.vista = "indice";
+  estado.abiertas.clear();
+  for (const [v, ops] of Object.entries(ORDENES)) estado.ordenes[v] = ops[0]?.[0] || "";
+}
+
 /** Relevancia mínima (numérica) según el filtro elegido. */
 export const relevanciaMinima = () => RELEVANCIA[estado.relevancia] || 0;
 

@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="theme-color" content="#020402">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Índice de Cómo: todo lo que se menciona en el podcast</title>
+  <title>Entendí la referencia del Cómo: todo lo que se menciona en el podcast</title>
+  <meta name="description" content="Índice de las personas, libros, películas, países y demás referencias que salen en Cómo, el podcast de antiayuda, con enlace al minuto exacto.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔖</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,15 +20,17 @@
   <link rel="stylesheet" href="css/episodios.css">
   <link rel="stylesheet" href="css/mosaico.css">
   <link rel="stylesheet" href="css/mapa.css">
+  <link rel="stylesheet" href="css/como-se-hace.css">
 
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
   <header class="top wrap">
-    <h1><img src="img/logo.png" alt="Cómo" width="274" height="245"></h1>
+    <h1><a href="./" data-inicio title="Volver al inicio"><img src="img/logo.png" alt="Cómo" width="274" height="245"></a></h1>
     <div>
-      <p class="lema">Todo lo que se menciona en el podcast</p>
+      <p class="lema">Entendí la referencia del Cómo</p>
       <p id="intro">Cargando referencias…</p>
+      <p class="como-enlace"><button class="enlace" data-accion="como">Cómo se hace este índice</button></p>
     </div>
   </header>
 
@@ -76,9 +79,15 @@
   </main>
 
   <footer class="wrap">
-    <p>Web hecha por un oyente, sin relación oficial con el podcast; el logo pertenece a Cómo. Datos generados con el cuaderno de extracción a partir de las transcripciones del
-      <a href="https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw" target="_blank" rel="noopener">canal de Cómo en YouTube</a>.
-      Las referencias marcadas «por revisar» tienen una identificación dudosa.</p>
+    <p>Web hecha por un oyente, sin relación oficial con el podcast; el logo pertenece a Cómo.
+      Las referencias las ha sacado una IA leyéndose las transcripciones del
+      <a href="https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw" target="_blank" rel="noopener">canal de Cómo en YouTube</a>:
+      se ha tragado más horas de antiayuda que nadie y aun así no pilla todos los chistes.
+      Las marcadas «por revisar» son las que ni ella tiene claras.
+      <button class="enlace" data-accion="como">Cómo se ha hecho</button>.</p>
+    <p>Si quieres hacer tus propias cuentas, descarga los datos en
+      <a href="data/portal_referencias.json" download="entendi-la-referencia.json">JSON</a> o en
+      <button class="enlace" data-accion="csv">CSV</button> (una fila por mención, se abre en Excel).</p>
     <p><label for="file">Cargar otro portal_referencias.json</label><input id="file" type="file" accept=".json,application/json">
       para ver una versión más reciente sin volver a publicar la página.</p>
   </footer>
@@ -89,6 +98,43 @@
       <button class="btn" data-cerrar>Cerrar</button>
     </div>
     <div class="ficha-cuerpo"></div>
+  </dialog>
+
+  <dialog class="como" id="como-se-hace" aria-labelledby="como-titulo">
+    <div class="como-cab">
+      <h2 id="como-titulo">Cómo hacer un índice de Cómo</h2>
+      <button class="btn" data-cerrar>Cerrar</button>
+    </div>
+    <p class="como-intro">Nadie se ha escuchado los episodios con una libreta. Lo ha hecho una máquina, en cuatro pasos:</p>
+    <ol class="pasos">
+      <li>
+        <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="4" width="30" height="19"/><path d="M17 9v9l7-4.5z"/><path d="M5 29h30M5 35h20"/></svg>
+        <p class="cifra"><b data-cifra="episodios">…</b> episodios</p>
+        <h3>Transcripciones</h3>
+        <p>Se descargan los subtítulos automáticos de cada episodio del canal de YouTube, con sus tiempos.</p>
+      </li>
+      <li>
+        <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 8h30M5 16h12M5 24h30M5 32h22"/><rect class="relleno" x="20" y="12" width="15" height="8"/></svg>
+        <p class="cifra"><b data-cifra="menciones">…</b> menciones</p>
+        <h3>Lectura</h3>
+        <p>Una IA lee cada transcripción a trozos de 20 minutos y apunta quién o qué sale, en qué minuto, en qué contexto y si es tema central o de pasada.</p>
+      </li>
+      <li>
+        <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="7" width="32" height="26"/><rect x="8" y="11" width="10" height="14"/><path d="M22 13h10M22 19h10M22 25h6M8 29h10"/></svg>
+        <p class="cifra"><b data-cifra="identificadas">…</b> identificadas</p>
+        <h3>Identificación</h3>
+        <p>Cada nombre se busca en Wikidata, TMDB, Open Library y MusicBrainz para saber qué es exactamente y sacar foto o portada. Si la coincidencia es dudosa, queda «por revisar».</p>
+      </li>
+      <li>
+        <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect class="relleno" x="5" y="6" width="5" height="5"/><rect class="relleno" x="5" y="17.5" width="5" height="5"/><rect class="relleno" x="5" y="29" width="5" height="5"/><path d="M15 8.5h20M15 20h20M15 31.5h14"/></svg>
+        <p class="cifra"><b data-cifra="referencias">…</b> referencias</p>
+        <h3>Índice</h3>
+        <p>Se juntan las menciones de una misma cosa y todo acaba en un archivo que lee esta web. Cada minuto enlaza al momento exacto del vídeo.</p>
+      </li>
+    </ol>
+    <p class="como-pie">Ese archivo lo puedes descargar en
+      <a href="data/portal_referencias.json" download="entendi-la-referencia.json">JSON</a> o en
+      <button class="enlace" data-accion="csv">CSV</button>.</p>
   </dialog>
 </body>
 </html>

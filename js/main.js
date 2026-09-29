@@ -1,10 +1,12 @@
 // Punto de entrada: carga los datos y conecta los eventos de la interfaz.
 import { descargarDatos, leerArchivo, prepararDatos } from "./datos.js";
-import { buscarReferencia, datos, estado, reiniciarFiltros } from "./filtros.js";
+import { buscarReferencia, datos, estado, reiniciarFiltros, volverAlEstadoInicial } from "./filtros.js";
 import { vigilarImagenesRotas } from "./imagenes.js";
 import { dom, pintar, pintarCabecera, pintarError } from "./render.js";
 import { fichaHTML } from "./plantillas/referencia.js";
 import { abrirFicha } from "./componentes/dialogo.js";
+import { abrirComoSeHace } from "./componentes/como-se-hace.js";
+import { descargarCSV } from "./descargas.js";
 
 function usarDatos(lista) {
   Object.assign(datos, prepararDatos(lista));
@@ -48,6 +50,15 @@ function irAReferencia(id) {
   document.querySelector(`.entry[data-id="${CSS.escape(id)}"]`)?.scrollIntoView({ block: "center" });
 }
 
+/** Clic en el logo: vuelve al inicio sin recargar los 3 MB de datos. */
+function volverAlInicio() {
+  volverAlEstadoInicial();
+  dom.busqueda.value = dom.episodio.value = dom.relevancia.value = "";
+  pintar();
+  window.scrollTo({ top: 0 });
+  history.replaceState(null, "", location.pathname);
+}
+
 function abrirDesde(el) {
   const r = buscarReferencia(el.dataset.abrir);
   if (r) abrirFicha(r);
@@ -55,7 +66,23 @@ function abrirDesde(el) {
 
 document.addEventListener("click", (e) => {
   const el = e.target;
-  if (!(el instanceof Element) || el.closest("dialog")) return;
+  if (!(el instanceof Element)) return;
+
+  // Estos dos también funcionan desde dentro de la ventana «Cómo se hace».
+  if (el.closest('[data-accion="csv"]')) { descargarCSV(datos.referencias); return; }
+  if (el.closest('[data-accion="como"]')) { abrirComoSeHace(); return; }
+
+  if (el.closest("dialog")) return;
+
+  // Con Ctrl, Cmd o clic central se deja abrir el inicio en otra pestaña.
+  // Si los datos no han llegado a cargar, se recarga la página.
+  const logo = el.closest("[data-inicio]");
+  if (logo) {
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0 || !datos.referencias.length) return;
+    e.preventDefault();
+    volverAlInicio();
+    return;
+  }
 
   const vista = el.closest("[data-view]");
   if (vista) { estado.vista = vista.dataset.view; pintar(); return; }

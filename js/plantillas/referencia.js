@@ -56,6 +56,7 @@ function enlacesFicha(r) {
   }
   if (r.wikidata && !/wikidata\.org/.test(r.url_externa || "")) enlaces.push(a(`https://www.wikidata.org/wiki/${r.wikidata}`, "Wikidata"));
   if (e.web && e.web !== r.url_externa) enlaces.push(a(e.web, "Web oficial"));
+  if (e.musicbrainz && r.fuente !== "musicbrainz") enlaces.push(a(`https://musicbrainz.org/artist/${encodeURIComponent(e.musicbrainz)}`, "MusicBrainz"));
   return enlaces;
 }
 

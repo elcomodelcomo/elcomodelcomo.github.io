@@ -8,6 +8,8 @@
     "cambiar: cambia campos. tipo, nombre, descripcion, url_externa, imagen, wikidata, iso, revisar...",
     "   «si_tipo» limita el cambio a las de ese tipo (si hay dos con el mismo nombre).",
     "   «quitar_ficha»: true borra la identificación (imagen, descripción, enlaces) cuando es de otra cosa.",
+    "   «si_ficha»: solo se aplica mientras la referencia tenga esa ficha (un Q de Wikidata o el id de TMDB...).",
+    "   Así, cuando el cuaderno la identifique bien, la corrección deja de aplicarse sola.",
     "fusionar: junta «de» en «en». La ficha es la de «en»; «nombre» elige con qué nombre se muestra.",
     "",
     "Además se hace solo: juntar las que comparten Wikidata o ficha de TMDB, MusicBrainz u Open Library,",
@@ -46,7 +48,18 @@
     {"nombre": "GRECE", "quitar_ficha": true},
     {"nombre": "LVMH", "quitar_ficha": true},
     {"nombre": "Google Drive", "quitar_ficha": true},
-    {"nombre": "El Joker", "quitar_ficha": true}
+    {"nombre": "El Joker", "quitar_ficha": true},
+
+    {"nombre": "ABC", "si_ficha": "Q781365", "quitar_ficha": true, "revisar": false,
+     "descripcion": "periódico español", "url_externa": "https://es.wikipedia.org/wiki/ABC_(peri%C3%B3dico)"},
+    {"nombre": "Podemos", "si_ficha": "Q3181274", "quitar_ficha": true, "revisar": false,
+     "descripcion": "partido político español", "url_externa": "https://es.wikipedia.org/wiki/Podemos_(partido_pol%C3%ADtico)"},
+    {"nombre": "Boom", "si_ficha": "tv/62820", "quitar_ficha": true, "revisar": false,
+     "descripcion": "concurso de televisión español"},
+    {"nombre": "Andrea Colás", "si_ficha": "Q16526216", "quitar_ficha": true, "revisar": false,
+     "descripcion": "youtuber española"},
+    {"nombre": "Tamayo", "si_ficha": "Q100453410", "quitar_ficha": true,
+     "descripcion": "creador de videoensayos en YouTube"}
   ],
 
   "fusionar": [

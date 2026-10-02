@@ -79,12 +79,17 @@ function aplicarCorrecciones(lista, c, informe) {
   }
 
   for (const cambio of c.cambiar || []) {
-    const { nombre, si_tipo, quitar_ficha, ...campos } = cambio;
-    const elegidas = seleccionar(lista, nombre, si_tipo);
-    if (!elegidas.length) { avisar(`cambiar: no hay ninguna referencia «${nombre}»${si_tipo ? ` de tipo ${si_tipo}` : ""}`); continue; }
+    const { nombre, si_tipo, si_ficha, quitar_ficha, ...campos } = cambio;
+    const conNombre = seleccionar(lista, nombre, si_tipo);
+    if (!conNombre.length) { avisar(`cambiar: no hay ninguna referencia «${nombre}»${si_tipo ? ` de tipo ${si_tipo}` : ""}`); continue; }
+    // «si_ficha»: solo mientras siga identificada con esa ficha equivocada. Si el cuaderno ya lo ha arreglado, no se toca.
+    const elegidas = si_ficha ? conNombre.filter((r) => r.id_externo === si_ficha || r.wikidata === si_ficha) : conNombre;
+    if (!elegidas.length) { avisar(`cambiar: «${nombre}» ya no tiene la ficha ${si_ficha}; esta corrección sobra y se puede quitar`); continue; }
     lista = lista.map((r) => {
       if (!elegidas.includes(r)) return r;
       let nueva = quitar_ficha ? quitarFicha(r) : { ...r };
+      // Las que arregla una misma corrección son la misma cosa: se juntarán aunque ya no compartan ficha.
+      if (elegidas.length > 1) nueva._mismaCosa = `correccion:${normalizar(nombre)}`;
       const { iso, ...resto } = campos;
       Object.assign(nueva, resto);
       if (iso !== undefined) nueva.extra = { ...nueva.extra, iso };
@@ -130,6 +135,7 @@ function juntarRepetidas(lista, informe) {
     if (r.wikidata) unir(`wd:${r.wikidata}`, i);
     if (r.fuente && r.fuente !== "wikidata" && r.fuente !== "enlace" && r.id_externo) unir(`${r.fuente}:${r.id_externo}`, i);
     if (MISMA_PERSONA.has(r.tipo)) unir(`persona:${normalizar(r.nombre).trim()}`, i);
+    if (r._mismaCosa) unir(r._mismaCosa, i);
   });
 
   const grupos = new Map();
@@ -157,7 +163,7 @@ export function limpiar(listaOriginal, correcciones = {}) {
   let lista = listaOriginal.map((r) => ({ ...r, menciones: [...(r.menciones || [])] }));
   lista = aplicarCorrecciones(lista, correcciones || {}, informe);
   lista = corregirMusicos(lista, informe);
-  lista = juntarRepetidas(lista, informe);
+  lista = juntarRepetidas(lista, informe).map(({ _mismaCosa, ...r }) => r);
   lista.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   return { lista, informe };
 }

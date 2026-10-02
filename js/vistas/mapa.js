@@ -3,6 +3,7 @@ import { datos, mencionesVisibles } from "../filtros.js";
 import { descargarMapa } from "../datos.js";
 import { imgHTML } from "../imagenes.js";
 import { textoMenciones } from "../plantillas/referencia.js";
+import { conImagenes } from "./mosaico.js";
 import { compararES, esc } from "../utils.js";
 
 /** Intensidad del verde: raíz cuadrada para que los países poco citados se sigan viendo. */
@@ -40,8 +41,10 @@ function listaHTML(paises, max) {
   }).join("")}</ul>`;
 }
 
-export function pintarMapa(lista, { contenedor, barraLetras, repintar }) {
-  barraLetras.innerHTML = "";
+export function pintarMapa(lista, { contenedor, repintar }) {
+  // Las banderas salen del código ISO: las imágenes solo hacen falta para países que ya no existen,
+  // así que no se espera por ellas.
+  conImagenes(contenedor, repintar, false);
   const paises = lista
     .filter((r) => r.tipo === "pais")
     .map((r) => ({ r, n: mencionesVisibles(r).length }))

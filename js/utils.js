@@ -35,3 +35,10 @@ export function separarTitulo(titulo) {
 }
 
 export const plural = (n, uno, varios) => `${n} ${n === 1 ? uno : varios}`;
+
+/** Enlace a YouTube en el minuto de la mención (sin minuto si viene de la descripción del vídeo). */
+export function enlaceMencion(m) {
+  const base = `https://www.youtube.com/watch?v=${encodeURIComponent(m.video_id)}`;
+  const s = m.origen === "descripcion" ? 0 : segundos(m.minuto);
+  return s ? `${base}&t=${s}s` : base;
+}

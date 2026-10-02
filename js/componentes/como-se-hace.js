@@ -7,13 +7,10 @@ const cifra = (clave) => dialogo.querySelector(`[data-cifra="${clave}"]`);
 const num = (n) => n.toLocaleString("es-ES");
 
 function rellenarCifras() {
-  const { referencias, episodios } = datos;
-  const menciones = referencias.reduce((n, r) => n + r.menciones.length, 0);
-  const identificadas = referencias.filter((r) => r.fuente).length;
-  cifra("episodios").textContent = num(episodios.length);
-  cifra("menciones").textContent = num(menciones);
-  cifra("identificadas").textContent = num(identificadas);
-  cifra("referencias").textContent = num(referencias.length);
+  for (const [clave, n] of Object.entries(datos.cifras)) {
+    const el = cifra(clave);
+    if (el) el.textContent = num(n);
+  }
 }
 
 export function abrirComoSeHace() {

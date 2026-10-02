@@ -3,7 +3,7 @@ import { ORDENES, RELEVANCIA } from "./config.js";
 import { normalizar } from "./utils.js";
 
 /** Datos cargados (se rellenan desde main.js). */
-export const datos = { referencias: [], episodios: [], porId: {}, mapa: null };
+export const datos = { referencias: [], episodios: [], porId: {}, porRef: new Map(), cifras: {}, mapa: null };
 
 /** Lo que el usuario tiene seleccionado en cada momento. */
 export const estado = {
@@ -13,6 +13,7 @@ export const estado = {
   vista: "indice",       // "indice" | "mosaico" | "episodios" | "mapa"
   relevancia: "",        // "" | "central" | "secundaria"
   abiertas: new Set(),   // ids de referencias desplegadas en el índice
+  episodiosAbiertos: new Set(), // episodios con las menciones desplegadas
   // Orden elegido en cada vista; empieza con la primera opción de ORDENES.
   ordenes: Object.fromEntries(Object.entries(ORDENES).map(([v, ops]) => [v, ops[0]?.[0] || ""])),
 };
@@ -29,6 +30,7 @@ export function volverAlEstadoInicial() {
   reiniciarFiltros();
   estado.vista = "indice";
   estado.abiertas.clear();
+  estado.episodiosAbiertos.clear();
   for (const [v, ops] of Object.entries(ORDENES)) estado.ordenes[v] = ops[0]?.[0] || "";
 }
 
@@ -56,4 +58,4 @@ export function referenciasFiltradas({ ignorarTipo = false } = {}) {
   });
 }
 
-export const buscarReferencia = (id) => datos.referencias.find((r) => r.id === id);
+export const buscarReferencia = (id) => datos.porRef.get(id);

@@ -8,19 +8,10 @@
   <meta name="description" content="Índice de las personas, libros, películas, países y demás referencias que salen en Cómo, el podcast de antiayuda, con enlace al minuto exacto.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔖</text></svg>">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Instrument+Sans:wght@400;600&display=swap">
-
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/indice.css">
-  <link rel="stylesheet" href="css/episodios.css">
-  <link rel="stylesheet" href="css/mosaico.css">
-  <link rel="stylesheet" href="css/mapa.css">
-  <link rel="stylesheet" href="css/como-se-hace.css">
+  <link rel="preload" href="data/indice.json" as="fetch" crossorigin>
+  <link rel="preload" href="fuentes/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/main.css">
 
   <script type="module" src="js/main.js"></script>
 </head>
@@ -73,6 +64,7 @@
       <span><b class="ts central">12:34</b> tema central</span>
       <span><b class="ts">12:34</b> secundaria</span>
       <span><b class="ts de_pasada">12:34</b> de pasada</span>
+      <span><b class="ts descr">descr.</b> citada en la descripción del vídeo</span>
     </div>
 
     <div id="out"></div>
@@ -91,6 +83,10 @@
     <p><label for="file">Cargar otro portal_referencias.json</label><input id="file" type="file" accept=".json,application/json">
       para ver una versión más reciente sin volver a publicar la página.</p>
   </footer>
+
+  <button class="subir" id="subir" type="button" aria-label="Volver arriba" title="Volver arriba">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M5 11.5 12 4.5l7 7"/></svg>
+  </button>
 
   <dialog class="ficha" id="ficha" aria-labelledby="ficha-titulo">
     <div class="ficha-cab">
@@ -117,7 +113,7 @@
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 8h30M5 16h12M5 24h30M5 32h22"/><rect class="relleno" x="20" y="12" width="15" height="8"/></svg>
         <p class="cifra"><b data-cifra="menciones">…</b> menciones</p>
         <h3>Lectura</h3>
-        <p>Una IA lee cada transcripción a trozos de 20 minutos y apunta quién o qué sale, en qué minuto, en qué contexto y si es tema central o de pasada.</p>
+        <p>Una IA lee cada transcripción a trozos de 20 minutos y apunta quién o qué sale, en qué minuto, en qué contexto y si es tema central o de pasada. También lee la descripción del vídeo, donde suelen citar artículos y estudios.</p>
       </li>
       <li>
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="7" width="32" height="26"/><rect x="8" y="11" width="10" height="14"/><path d="M22 13h10M22 19h10M22 25h6M8 29h10"/></svg>

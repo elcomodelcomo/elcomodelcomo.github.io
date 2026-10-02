@@ -1,13 +1,14 @@
 /* Vista «Índice A–Z»: letras, entradas y ficha desplegada */
 section.letter{display:grid;grid-template-columns:4.5rem 1fr;gap:0 1rem;border-top:1px solid var(--line);padding-top:.5rem;margin-top:1rem}
-section.letter>h2{font-family:var(--display);font-weight:800;font-size:4rem;line-height:.85;margin:.2rem 0 0;color:var(--accent);position:sticky;top:10rem;align-self:start}
+section.letter>h2{font-family:var(--display);font-weight:800;font-size:4rem;line-height:.85;margin:.2rem 0 0;color:var(--accent);position:sticky;top:calc(var(--fijo) + .5rem);align-self:start}
 ul.entries{list-style:none;margin:0;padding:0}
 @media (max-width:600px){
   section.letter{grid-template-columns:1fr}
   section.letter>h2{position:static;font-size:3rem}
 }
 
-.entry{border-bottom:1px solid var(--line)}
+/* Las filas fuera de pantalla no se maquetan hasta que se acercan */
+.entry{border-bottom:1px solid var(--line);content-visibility:auto;contain-intrinsic-size:auto 4.5rem}
 .entry>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;width:100%;padding:.65rem .2rem;cursor:pointer}
 .entry>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .entry>button:hover .name{color:var(--accent)}

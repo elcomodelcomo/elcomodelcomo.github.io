@@ -1,0 +1,41 @@
+# Publica la web en GitHub Pages en cada push a main.
+# Parte data/portal_referencias.json en ficheros pequeños y junta el JS y el CSS
+# (ver herramientas/construir.mjs). Requiere, una sola vez:
+# Settings → Pages → Build and deployment → Source: «GitHub Actions».
+name: Publicar la web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Instalar esbuild
+        run: npm install --no-save --no-package-lock esbuild@0.28.2
+      - name: Construir la web
+        run: node herramientas/construir.mjs _site
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: despliegue
+        uses: actions/deploy-pages@v5

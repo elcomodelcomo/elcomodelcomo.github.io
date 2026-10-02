@@ -1,0 +1,12 @@
+/* Hoja única que enlaza index.html. Al publicar, GitHub Actions junta y comprime todas estas
+   en un solo fichero (ver herramientas/construir.mjs); en local se cargan por separado. */
+@import "fuentes.css";
+@import "tokens.css";
+@import "base.css";
+@import "components.css";
+@import "layout.css";
+@import "indice.css";
+@import "episodios.css";
+@import "mosaico.css";
+@import "mapa.css";
+@import "como-se-hace.css";

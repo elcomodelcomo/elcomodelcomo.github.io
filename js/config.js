@@ -1,7 +1,8 @@
 // Configuración de la web. Si el cuaderno añade tipos nuevos, se declaran aquí.
 
 // Rutas de los datos (relativas a index.html).
-export const RUTA_DATOS = "data/portal_referencias.json";
+export const RUTA_DATOS = "data/indice.json";               // lo genera herramientas/construir.mjs al publicar
+export const RUTA_COMPLETO = "data/portal_referencias.json"; // salida del cuaderno: CSV, descarga y respaldo
 export const RUTA_MAPA = "data/mapa-mundo.json"; // generado con herramientas/generar-mapa.mjs
 
 // tipo del JSON → [nombre del filtro (plural), etiqueta junto al nombre (singular)]
@@ -18,6 +19,7 @@ export const TIPOS = {
   artista_musical: ["Música", "artista musical"],
   cancion: ["Canciones", "canción"],
   disco: ["Discos", "disco"],
+  articulo: ["Artículos y estudios", "artículo"],
   rrss: ["Redes sociales", "red social"],
   otro: ["Otros", "otro"],
 };
@@ -29,6 +31,9 @@ export const ENCAJE_IMAGEN = { pais: "bandera", empresa: "contener", rrss: "cont
 // Códigos ISO históricos sin bandera en flagcdn: se usa la imagen de Wikidata.
 export const ISO_HISTORICOS = new Set(["SU", "DD", "YU", "CS"]);
 export const urlBandera = (iso) => `https://flagcdn.com/w160/${iso.toLowerCase()}.png`;
+
+// Referencias que se pintan de una vez en el índice y el mosaico; el resto, según se baja.
+export const TANDA = 150;
 
 // Peso de cada relevancia, para filtrar y ordenar.
 export const RELEVANCIA = { central: 3, secundaria: 2, de_pasada: 1 };

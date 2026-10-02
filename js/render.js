@@ -5,6 +5,8 @@ import { pintarIndice } from "./vistas/indice.js";
 import { pintarMosaico } from "./vistas/mosaico.js";
 import { pintarEpisodios } from "./vistas/episodios.js";
 import { pintarMapa } from "./vistas/mapa.js";
+import { detenerTandas } from "./vistas/tandas.js";
+import { activarLetras } from "./componentes/letras.js";
 import { esc, plural } from "./utils.js";
 
 const $ = (s) => document.querySelector(s);
@@ -28,7 +30,7 @@ const VISTAS = { indice: pintarIndice, mosaico: pintarMosaico, episodios: pintar
 /** Se llama una vez por cada juego de datos cargado. */
 export function pintarCabecera() {
   const { referencias, episodios } = datos;
-  dom.intro.innerHTML = `<strong>${referencias.length} referencias</strong> (personas, libros, películas, países, empresas…) de los <strong>${episodios.length} últimos episodios</strong> del podcast de antiayuda. Cada minuto enlaza al momento exacto del vídeo.`;
+  dom.intro.innerHTML = `<strong>${referencias.length.toLocaleString("es-ES")} referencias</strong> (personas, libros, películas, países, empresas…) de los <strong>${episodios.length} últimos episodios</strong> del podcast de antiayuda. Cada minuto enlaza al momento exacto del vídeo.`;
   dom.episodio.innerHTML = `<option value="">Todos los episodios</option>` +
     episodios.map((e) => `<option value="${esc(e.id)}">${esc(e.corto)}</option>`).join("");
   dom.episodio.value = estado.episodio;
@@ -36,7 +38,7 @@ export function pintarCabecera() {
 
 export function pintarError(mensaje) {
   dom.intro.textContent = mensaje;
-  dom.letras.innerHTML = "";
+  activarLetras(null);
   dom.salida.innerHTML = "";
 }
 
@@ -76,9 +78,12 @@ export function pintar() {
   // En el mapa se ignoran los chips de tipo: siempre son países.
   const lista = estado.vista === "mapa" ? referenciasFiltradas({ ignorarTipo: true }) : referenciasFiltradas();
 
+  // Cada vista empieza de cero: sin tandas pendientes ni barra de letras (el índice A–Z la vuelve a poner).
+  detenerTandas();
+  activarLetras(null);
+
   if (!lista.length) {
     dom.estado.textContent = "";
-    dom.letras.innerHTML = "";
     dom.salida.innerHTML = `<div class="empty">Nada coincide con «${esc(estado.busqueda || "estos filtros")}».<br>
       <button class="btn" data-accion="reiniciar">Quitar filtros</button></div>`;
     return;
@@ -87,4 +92,5 @@ export function pintar() {
   dom.estado.textContent = textoEstado(lista);
   dom.leyenda.hidden = estado.vista === "mosaico" || estado.vista === "mapa";
   VISTAS[estado.vista](lista, { contenedor: dom.salida, barraLetras: dom.letras, repintar: pintar });
+  dom.letras.hidden = !dom.letras.childElementCount;
 }

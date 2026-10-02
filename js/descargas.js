@@ -1,6 +1,7 @@
 // Descarga de los datos en CSV, generado en el navegador a partir de lo cargado.
-// El JSON completo se descarga con un enlace normal a data/portal_referencias.json.
-import { compararAZ, segundos, sinSignosIniciales } from "./utils.js";
+// Se genera a partir del JSON completo (data/portal_referencias.json), que solo se descarga al pedir el CSV.
+import { posicionMencion } from "./formato.js";
+import { compararAZ, sinSignosIniciales } from "./utils.js";
 
 // Una fila por mención. Separador «;» y BOM para que Excel en español lo abra con tildes y columnas.
 const COLUMNAS = [
@@ -15,7 +16,9 @@ const COLUMNAS = [
   ["minuto", (r, m) => m.minuto],
   ["relevancia", (r, m) => m.relevancia],
   ["contexto", (r, m) => m.contexto],
+  ["origen", (r, m) => (m.origen === "descripcion" ? "descripción del vídeo" : "audio")],
   ["enlace_youtube", (r, m) => m.enlace],
+  ["enlace_citado", (r, m) => m.url],
 ];
 
 const celda = (v) => {
@@ -26,7 +29,7 @@ const celda = (v) => {
 export function csvDeReferencias(referencias) {
   const filas = [COLUMNAS.map(([nombre]) => nombre).join(";")];
   const porEpisodioYMinuto = (a, b) =>
-    compararAZ(sinSignosIniciales(a.episodio), sinSignosIniciales(b.episodio)) || segundos(a.minuto) - segundos(b.minuto);
+    compararAZ(sinSignosIniciales(a.episodio), sinSignosIniciales(b.episodio)) || posicionMencion(a) - posicionMencion(b);
   for (const r of [...referencias].sort((a, b) => compararAZ(a.nombre, b.nombre))) {
     for (const m of [...r.menciones].sort(porEpisodioYMinuto)) filas.push(COLUMNAS.map(([, valor]) => celda(valor(r, m))).join(";"));
   }

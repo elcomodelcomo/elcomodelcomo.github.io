@@ -1,5 +1,7 @@
 /* Reglas base: reset, tipografía general y utilidades */
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 9rem)}
+/* Alturas de lo que queda fijo arriba; las mide js/componentes/fijos.js */
+:root{--alto-controles:0px;--alto-letras:0px;--fijo:calc(var(--alto-controles) + var(--alto-letras))}
+html{scroll-padding-top:calc(var(--fijo) + .75rem)}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:var(--accent);text-underline-offset:3px}

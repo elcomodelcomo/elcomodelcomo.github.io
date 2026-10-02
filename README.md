@@ -23,6 +23,7 @@ fuentes/                    Big Shoulders Display e Instrument Sans (OFL), aloja
 data/
   portal_referencias.json   Salida del cuaderno. Sustituirlo actualiza la web
   correcciones.json         Correcciones a mano que se aplican al publicar (ver «Corregir datos»)
+revisar.html                Página para revisar las referencias dudosas (ver «Revisar las referencias dudosas»)
   mapa-mundo.json           Siluetas de los países ya proyectadas (ver herramientas/)
 css/
   main.css                  Hoja que enlaza index.html; importa todas las demás
@@ -38,6 +39,7 @@ js/
   imagenes.js               Qué imagen usar y qué hacer si falla
   render.js                 Pinta cabecera, chips y la vista activa
   descargas.js              CSV generado en el navegador
+  revisar.js                Página de revisión; revision/ tiene la parte sin DOM (correcciones y Wikidata)
   utils.js                  Funciones auxiliares puras
   plantillas/referencia.js  HTML de una referencia y su ficha
   componentes/              Ventanas, barra de letras, flecha para subir, fichas pendientes
@@ -64,6 +66,16 @@ se guarda en el repositorio: se crean en cada publicación.
 
 Si no hay `indice.json` (por ejemplo, en local sin construir), la web carga el JSON completo
 y lo parte en el navegador con el mismo código. Funciona igual, solo que tarda más en arrancar.
+
+## Revisar las referencias dudosas
+
+`revisar.html` (no enlazada desde la web: entra a mano en `/revisar.html`) recorre las referencias marcadas
+«por revisar», de las más mencionadas a las menos. Para cada una enseña lo que se dijo en el podcast y la ficha
+encontrada, y permite darla por buena, quitar la ficha, buscar la buena en Wikidata, juntarla con otra,
+cambiar el tipo o el nombre, o descartarla. Tiene atajos de teclado (1, 2, 3, J, B, flechas y Z para deshacer).
+
+Las decisiones se guardan en el navegador. «Generar correcciones» las junta con `data/correcciones.json`
+(quitando además las correcciones que ya no hacen nada) y da el fichero nuevo para pegarlo en GitHub.
 
 ## Corregir datos
 

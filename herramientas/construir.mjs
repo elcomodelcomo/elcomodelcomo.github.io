@@ -46,6 +46,8 @@ escribir(join(datos, "indice.json"), indice);
 escribir(join(datos, "imagenes.json"), imagenes);
 // La descarga (JSON y CSV) es la versión ya limpia, la misma que se ve en la web.
 writeFileSync(join(datos, "portal_referencias.json"), JSON.stringify(lista, null, 1));
+// Para la página de revisión: qué correcciones ya no hacen nada.
+escribir(join(datos, "informe-limpieza.json"), { avisos: informe.avisos, sobrantes: informe.sobrantes });
 for (const [prefijo, grupo] of Object.entries(fichas)) escribir(join(datos, "fichas", `${prefijo}.json`), grupo);
 for (const [id, ms] of Object.entries(episodios)) escribir(join(datos, "episodios", `${id}.json`), ms);
 
@@ -67,18 +69,20 @@ try {
   console.log("esbuild no está instalado: se publican los módulos por separado (funciona igual, carga algo más lento).");
 }
 if (esbuild) {
+  // Dos páginas: la web (main) y la de revisión (revisar)
+  const PAGINAS = ["main", "revisar"];
   await esbuild.build({
-    entryPoints: [join(raiz, "js/main.js")], outfile: join(salida, "js/main.js"),
+    entryPoints: PAGINAS.map((p) => join(raiz, `js/${p}.js`)), outdir: join(salida, "js"),
     bundle: true, minify: true, format: "esm", target: "es2022", allowOverwrite: true, logLevel: "warning",
   });
   await esbuild.build({
-    entryPoints: [join(raiz, "css/main.css")], outfile: join(salida, "css/main.css"),
+    entryPoints: PAGINAS.map((p) => join(raiz, `css/${p}.css`)), outdir: join(salida, "css"),
     bundle: true, minify: true, external: ["*.woff2"], allowOverwrite: true, logLevel: "warning",
   });
-  // Los módulos y hojas sueltas ya van dentro de main.js y main.css.
+  // Los módulos y hojas sueltas ya van dentro de los ficheros juntados.
   for (const carpeta of ["js", "css"]) {
     for (const f of readdirSync(join(salida, carpeta))) {
-      if (f !== `main.${carpeta}`) rmSync(join(salida, carpeta, f), { recursive: true, force: true });
+      if (!PAGINAS.some((p) => f === `${p}.${carpeta}`)) rmSync(join(salida, carpeta, f), { recursive: true, force: true });
     }
   }
   console.log("JavaScript y CSS juntados y comprimidos con esbuild.");

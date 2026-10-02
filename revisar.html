@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#020402">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Revisión de referencias · Entendí la referencia del Cómo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔖</text></svg>">
+  <link rel="preload" href="fuentes/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/revisar.css">
+  <script type="module" src="js/revisar.js"></script>
+</head>
+<body>
+  <header class="rv-cab">
+    <a class="rv-logo" href="./" title="Volver a la web"><img src="img/logo.png" alt="Cómo" width="274" height="245"></a>
+    <div class="rv-titulo">
+      <h1>Revisión de referencias</h1>
+      <p id="progreso">Cargando referencias…</p>
+    </div>
+    <button class="btn rv-generar" id="generar" type="button" disabled>Generar correcciones</button>
+  </header>
+
+  <div class="rv-filtros">
+    <label>Mostrar
+      <select id="f-estado">
+        <option value="pendientes">Por revisar, sin decidir</option>
+        <option value="sin-ficha">Por revisar sin ficha</option>
+        <option value="dudosa">Por revisar con ficha dudosa</option>
+        <option value="decididas">Ya decididas</option>
+        <option value="todas">Todas las referencias</option>
+      </select>
+    </label>
+    <label>Tipo
+      <select id="f-tipo"><option value="">Todos</option></select>
+    </label>
+    <label class="rv-buscador">Buscar
+      <input id="f-texto" type="search" placeholder="Nombre de la referencia" autocomplete="off">
+    </label>
+    <button class="btn" id="masivo" type="button" hidden></button>
+  </div>
+
+  <main class="rv-main">
+    <details class="rv-cola" id="cola-plegable" open>
+      <summary id="cola-resumen">Lista</summary>
+      <ol id="cola"></ol>
+    </details>
+    <section class="rv-ficha" id="ficha" aria-live="polite"></section>
+  </main>
+
+  <datalist id="nombres"></datalist>
+
+  <dialog class="rv-salida" id="salida" aria-labelledby="salida-titulo">
+    <h2 id="salida-titulo">Correcciones</h2>
+    <p id="salida-resumen"></p>
+    <label class="rv-check" id="sobrantes-opcion" hidden>
+      <input type="checkbox" id="quitar-sobrantes" checked>
+      <span id="sobrantes-texto"></span>
+    </label>
+    <ol class="rv-pasos">
+      <li>Copia el fichero o descárgalo.</li>
+      <li><a id="enlace-github" target="_blank" rel="noopener">Abre data/correcciones.json en GitHub</a>, borra todo su contenido y pega el nuevo (o sube el descargado). Guarda con «Commit changes».</li>
+      <li>En un par de minutos la web se publica de nuevo y estas referencias dejan de salir como «por revisar».</li>
+    </ol>
+    <div class="rv-salida-botones">
+      <button class="btn rv-principal" id="copiar" type="button">Copiar</button>
+      <button class="btn" id="descargar" type="button">Descargar correcciones.json</button>
+      <button class="btn" id="cerrar-salida" type="button">Cerrar</button>
+    </div>
+    <textarea id="salida-json" readonly spellcheck="false" aria-label="Contenido del nuevo correcciones.json"></textarea>
+    <p class="rv-nota">Tus decisiones se guardan en este navegador. Cuando la web ya se haya publicado con ellas,
+      <button class="enlace" id="vaciar" type="button">vacía la lista de decisiones</button>.</p>
+  </dialog>
+</body>
+</html>

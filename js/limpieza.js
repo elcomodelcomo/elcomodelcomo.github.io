@@ -69,22 +69,26 @@ function quitarFicha(r) {
 // --- 1. Correcciones a mano -------------------------------------------------
 
 function aplicarCorrecciones(lista, c, informe) {
-  const avisar = (texto) => informe.avisos.push(texto);
+  // Lo que ya no hace nada se apunta en «sobrantes»: la página de revisión lo usa para limpiar el fichero.
+  const avisar = (texto, entrada) => {
+    informe.avisos.push(texto);
+    if (entrada !== undefined) informe.sobrantes.push(entrada);
+  };
 
   for (const d of c.descartar || []) {
     const [nombre, tipo] = typeof d === "string" ? [d, null] : [d.nombre, d.tipo];
     const fuera = new Set(seleccionar(lista, nombre, tipo));
-    if (!fuera.size) avisar(`descartar: no hay ninguna referencia «${nombre}»`);
+    if (!fuera.size) avisar(`descartar: no hay ninguna referencia «${nombre}»`, d);
     lista = lista.filter((r) => !fuera.has(r));
   }
 
   for (const cambio of c.cambiar || []) {
-    const { nombre, si_tipo, si_ficha, quitar_ficha, ...campos } = cambio;
+    const { nombre, si_tipo, si_ficha, quitar_ficha, nombre_nuevo, ...campos } = cambio;
     const conNombre = seleccionar(lista, nombre, si_tipo);
-    if (!conNombre.length) { avisar(`cambiar: no hay ninguna referencia «${nombre}»${si_tipo ? ` de tipo ${si_tipo}` : ""}`); continue; }
+    if (!conNombre.length) { avisar(`cambiar: no hay ninguna referencia «${nombre}»${si_tipo ? ` de tipo ${si_tipo}` : ""}`, cambio); continue; }
     // «si_ficha»: solo mientras siga identificada con esa ficha equivocada. Si el cuaderno ya lo ha arreglado, no se toca.
     const elegidas = si_ficha ? conNombre.filter((r) => r.id_externo === si_ficha || r.wikidata === si_ficha) : conNombre;
-    if (!elegidas.length) { avisar(`cambiar: «${nombre}» ya no tiene la ficha ${si_ficha}; esta corrección sobra y se puede quitar`); continue; }
+    if (!elegidas.length) { avisar(`cambiar: «${nombre}» ya no tiene la ficha ${si_ficha}; esta corrección sobra y se puede quitar`, cambio); continue; }
     lista = lista.map((r) => {
       if (!elegidas.includes(r)) return r;
       let nueva = quitar_ficha ? quitarFicha(r) : { ...r };
@@ -93,14 +97,16 @@ function aplicarCorrecciones(lista, c, informe) {
       const { iso, ...resto } = campos;
       Object.assign(nueva, resto);
       if (iso !== undefined) nueva.extra = { ...nueva.extra, iso };
+      if (nombre_nuevo) nueva.nombre = nombre_nuevo;
       return nueva;
     });
   }
 
-  for (const { de, en, si_tipo, nombre } of c.fusionar || []) {
+  for (const fusion of c.fusionar || []) {
+    const { de, en, si_tipo, nombre } = fusion;
     const origen = seleccionar(lista, de, si_tipo);
     const destino = seleccionar(lista, en);
-    if (!origen.length || !destino.length) { avisar(`fusionar: no se encuentra «${!origen.length ? de : en}»`); continue; }
+    if (!origen.length || !destino.length) { avisar(`fusionar: no se encuentra «${!origen.length ? de : en}»`, fusion); continue; }
     const grupo = [...new Set([...origen, ...destino])];
     const unida = fusionar(grupo, { identidad: destino[0], nombre });
     lista = lista.filter((r) => !grupo.includes(r)).concat(unida);
@@ -159,7 +165,7 @@ function juntarRepetidas(lista, informe) {
 
 /** Aplica todo. «correcciones» es el contenido de data/correcciones.json (puede faltar). */
 export function limpiar(listaOriginal, correcciones = {}) {
-  const informe = { avisos: [], retipados: [], fusionadas: [] };
+  const informe = { avisos: [], sobrantes: [], retipados: [], fusionadas: [] };
   let lista = listaOriginal.map((r) => ({ ...r, menciones: [...(r.menciones || [])] }));
   lista = aplicarCorrecciones(lista, correcciones || {}, informe);
   lista = corregirMusicos(lista, informe);

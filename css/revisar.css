@@ -1,0 +1,99 @@
+/* Página de revisión (revisar.html). Usa los mismos tokens y componentes que la web. */
+@import "fuentes.css";
+@import "tokens.css";
+@import "base.css";
+@import "components.css";
+
+body{max-width:none}
+kbd{font-family:var(--sans);font-size:.72em;padding:0 .3em;margin-left:.35em;border:1px solid currentColor;opacity:.7}
+.rv-meta{color:var(--muted);font-size:.88rem}
+.rv-principal{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.rv-principal:hover{border-color:var(--text)}
+
+/* Cabecera */
+.rv-cab{display:flex;align-items:center;gap:1rem;padding:1rem clamp(1rem,3vw,2rem);border-bottom:1px solid var(--line)}
+.rv-logo img{display:block;width:56px;height:auto}
+.rv-titulo{flex:1;min-width:0}
+.rv-titulo h1{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1;margin:0;color:var(--accent)}
+.rv-titulo p{margin:.25rem 0 0;color:var(--muted);font-size:.92rem}
+.rv-generar:not(:disabled){background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.rv-generar:disabled{opacity:.5;cursor:default}
+
+/* Filtros */
+.rv-filtros{display:flex;flex-wrap:wrap;align-items:end;gap:.75rem 1rem;padding:.75rem clamp(1rem,3vw,2rem);border-bottom:1px solid var(--line)}
+.rv-filtros label{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;color:var(--muted)}
+.rv-filtros input{font:inherit;font-size:.92rem;padding:.55rem .75rem;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:0}
+.rv-buscador{flex:1 1 14rem}
+.rv-filtros #masivo{margin-left:auto}
+
+/* Dos columnas: lista y ficha */
+.rv-main{display:grid;grid-template-columns:20rem minmax(0,1fr);min-height:calc(100vh - 9rem)}
+.rv-cola{border-right:1px solid var(--line);position:sticky;top:0;align-self:start;max-height:100vh;overflow-y:auto;overflow-x:hidden;min-width:0}
+.rv-cola summary{display:none}
+.rv-cola ol{list-style:none;margin:0;padding:.25rem 0}
+.rv-cola li button{box-sizing:border-box;max-width:100%;display:grid;grid-template-columns:1.4rem minmax(0,1fr) auto;gap:.4rem;align-items:baseline;width:100%;text-align:left;
+  padding:.4rem .9rem;background:none;border:0;border-left:3px solid transparent;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
+.rv-cola li button:hover{background:var(--surface)}
+.rv-cola li button[aria-current="true"]{background:var(--surface-2);border-left-color:var(--accent)}
+.rv-cola li button.hecha{color:var(--muted)}
+.rv-marca{color:var(--accent);text-align:center}
+.rv-cola-nombre{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rv-cola-n{color:var(--muted);font-size:.8rem;font-variant-numeric:tabular-nums}
+.rv-vacio{padding:1rem;color:var(--muted)}
+
+/* Ficha */
+.rv-ficha{padding:1.25rem clamp(1rem,4vw,3rem) 4rem;max-width:56rem}
+.rv-motivo{margin:0;color:var(--muted);font-size:.9rem}
+.rv-nombre{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,7vw,4.8rem);line-height:.95;margin:.15rem 0 .4rem;color:var(--accent);overflow-wrap:anywhere}
+.rv-datos{margin:0 0 1rem;color:var(--muted)}
+.rv-ficha h3{font-size:1rem;font-weight:600;margin:1.6rem 0 .5rem}
+.rv-actual{display:flex;gap:1rem;align-items:flex-start;padding:.75rem;background:var(--surface);border:1px solid var(--line)}
+.rv-actual .rv-img{width:72px;height:96px;flex:none;background:var(--surface-2)}
+.rv-actual p{margin:0 0 .3rem}
+.rv-sin{color:var(--muted);margin:0}
+.rv-dichos{list-style:none;padding:0;margin:0;display:grid;gap:.45rem}
+.rv-dichos li{display:grid;grid-template-columns:4.2rem 1fr;gap:.6rem;align-items:baseline}
+.rv-ep{color:var(--muted);font-size:.85rem}
+.rv-mas{color:var(--muted);font-size:.88rem;display:block !important}
+
+.rv-acciones{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0 .5rem;padding:1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rv-decision{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;justify-content:space-between;padding:.6rem .8rem;background:var(--accent-soft);border-left:3px solid var(--accent)}
+.rv-decision p{margin:0}
+.rv-bloque{margin-top:1.4rem}
+.rv-linea{display:flex;gap:.5rem;flex-wrap:wrap}
+.rv-linea input,.rv-campos input,.rv-campos select{flex:1 1 14rem;font:inherit;font-size:.92rem;padding:.55rem .75rem;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:0;min-width:0}
+.rv-sugerencias{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .6rem}
+.rv-sugerencias .chip{white-space:normal;text-align:left;max-width:100%}
+.rv-candidatos{display:grid;gap:.5rem;margin-top:.6rem}
+.rv-candidato{display:grid;grid-template-columns:56px 1fr auto;gap:.8rem;align-items:center;padding:.5rem;border:1px solid var(--line)}
+.rv-img{display:block;width:56px;height:56px;background:var(--surface-2);overflow:hidden}
+.rv-img img{display:block;width:100%;height:100%;object-fit:cover}
+.rv-candidato p{margin:0}
+.rv-candidato span{color:var(--muted)}
+.rv-editar summary{cursor:pointer;font-weight:600}
+.rv-campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.75rem;margin-top:.5rem}
+.rv-campos label{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;color:var(--muted)}
+.rv-fin{padding:3rem 0}
+.rv-fin h2{font-family:var(--display);font-weight:800;font-size:2.4rem;margin:0 0 .5rem;color:var(--accent)}
+
+/* Ventana con el fichero generado */
+.rv-salida{width:min(52rem,calc(100vw - 2rem));max-height:calc(100vh - 2rem);background:var(--bg);color:var(--text);border:1px solid var(--accent);padding:1.25rem 1.5rem}
+.rv-salida::backdrop{background:rgba(0,0,0,.75)}
+.rv-salida h2{font-family:var(--display);font-weight:800;font-size:2rem;margin:0 0 .4rem;color:var(--accent)}
+.rv-pasos{padding-left:1.2rem;line-height:1.5}
+.rv-check{display:flex;gap:.5rem;align-items:flex-start;margin:.6rem 0}
+.rv-salida-botones{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}
+.rv-salida textarea{width:100%;height:16rem;font:.8rem/1.4 ui-monospace,Menlo,Consolas,monospace;background:var(--surface);color:var(--text);border:1px solid var(--line);padding:.6rem;resize:vertical}
+.rv-nota{font-size:.88rem;color:var(--muted)}
+
+@media (max-width:860px){
+  .rv-main{grid-template-columns:minmax(0,1fr)}
+  .rv-cola{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line)}
+  .rv-cola summary{display:block;padding:.7rem clamp(1rem,3vw,2rem);cursor:pointer;font-weight:600}
+  .rv-cola ol{max-height:45vh;overflow:auto}
+  .rv-cab{flex-wrap:wrap}
+  .rv-generar{width:100%}
+  kbd{display:none}
+  .rv-candidato{grid-template-columns:48px 1fr}
+  .rv-candidato button{grid-column:1 / -1}
+}

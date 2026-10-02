@@ -30,7 +30,8 @@ const VISTAS = { indice: pintarIndice, mosaico: pintarMosaico, episodios: pintar
 /** Se llama una vez por cada juego de datos cargado. */
 export function pintarCabecera() {
   const { referencias, episodios } = datos;
-  dom.intro.innerHTML = `<strong>${referencias.length.toLocaleString("es-ES")} referencias</strong> (personas, libros, películas, países, empresas…) de los <strong>${episodios.length} últimos episodios</strong> del podcast de antiayuda. Cada minuto enlaza al momento exacto del vídeo.`;
+  dom.intro.innerHTML = `<strong>${referencias.length.toLocaleString("es-ES")} referencias</strong> (personas, libros, películas, países, empresas…) de <strong>${plural(episodios.length, "episodio", "episodios")}</strong> del podcast de antiayuda. Cada minuto enlaza al momento exacto del vídeo.
+    <span class="aviso">Solo están los episodios que tienen subtítulos en YouTube: de ellos sale todo, así que los que no los tienen no aparecen.</span>`;
   dom.episodio.innerHTML = `<option value="">Todos los episodios</option>` +
     episodios.map((e) => `<option value="${esc(e.id)}">${esc(e.corto)}</option>`).join("");
   dom.episodio.value = estado.episodio;

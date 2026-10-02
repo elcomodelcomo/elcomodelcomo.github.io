@@ -1,0 +1,57 @@
+{
+  "_instrucciones": [
+    "Correcciones a mano que se aplican al publicar, encima de lo que genera el cuaderno.",
+    "Se puede editar desde GitHub (icono del lápiz); al guardar, la web se vuelve a publicar en un par de minutos.",
+    "Las referencias se buscan por su nombre exacto, sin importar tildes ni mayúsculas.",
+    "",
+    "descartar: quita la referencia entera. Ej.: \"Nombre\" o {\"nombre\": \"Nombre\", \"tipo\": \"otro\"}",
+    "cambiar: cambia campos. tipo, nombre, descripcion, url_externa, imagen, wikidata, iso, revisar...",
+    "   «si_tipo» limita el cambio a las de ese tipo (si hay dos con el mismo nombre).",
+    "   «quitar_ficha»: true borra la identificación (imagen, descripción, enlaces) cuando es de otra cosa.",
+    "fusionar: junta «de» en «en». La ficha es la de «en»; «nombre» elige con qué nombre se muestra.",
+    "",
+    "Además se hace solo: juntar las que comparten Wikidata o ficha de TMDB, MusicBrainz u Open Library,",
+    "juntar persona y artista musical con el mismo nombre, y pasar a persona los «artistas musicales»",
+    "cuya descripción dice que son otra cosa (futbolista, arquitecto, escritor...).",
+    "Tipos: persona, artista_musical, empresa, pais, evento_historico, libro, pelicula, serie, programa_tv,",
+    "podcast, cancion, disco, rrss, articulo, otro"
+  ],
+
+  "descartar": [],
+
+  "cambiar": [
+    {"nombre": "Pablo Picasso", "si_tipo": "artista_musical", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Vincent van Gogh", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Caravaggio", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Luis Enrique", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Catan", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Sasel", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Tamaki", "tipo": "persona", "quitar_ficha": true},
+    {"nombre": "Superman", "si_tipo": "artista_musical", "tipo": "otro", "quitar_ficha": true},
+    {"nombre": "Detroit", "si_tipo": "artista_musical", "tipo": "pais", "quitar_ficha": true},
+    {"nombre": "Federico Fellini", "si_tipo": "artista_musical", "tipo": "persona"},
+    {"nombre": "Wilfred Owen", "tipo": "persona"},
+    {"nombre": "Siegfried Sassoon", "tipo": "persona"},
+    {"nombre": "Rodney Mullen", "tipo": "persona"},
+    {"nombre": "DBstep Bangá", "tipo": "persona"},
+    {"nombre": "Lara y Amar", "tipo": "persona"},
+    {"nombre": "Humppas", "tipo": "disco"},
+    {"nombre": "Alaska", "si_tipo": "artista_musical", "quitar_ficha": true},
+    {"nombre": "Bustamante", "si_tipo": "artista_musical", "quitar_ficha": true},
+    {"nombre": "The Black Eyed Peas", "quitar_ficha": true},
+    {"nombre": "Sexy Red", "quitar_ficha": true},
+    {"nombre": "La Ceja", "si_tipo": "artista_musical", "quitar_ficha": true},
+    {"nombre": "JP", "si_tipo": "persona", "quitar_ficha": true},
+    {"nombre": "MSF", "quitar_ficha": true},
+    {"nombre": "GRECE", "quitar_ficha": true},
+    {"nombre": "LVMH", "quitar_ficha": true},
+    {"nombre": "Google Drive", "quitar_ficha": true},
+    {"nombre": "El Joker", "quitar_ficha": true}
+  ],
+
+  "fusionar": [
+    {"de": "China", "en": "República Popular China", "nombre": "China"},
+    {"de": "Willy Nelson", "en": "Willie Nelson"},
+    {"de": "Tupac Shakur", "en": "2Pac", "nombre": "Tupac Shakur"}
+  ]
+}

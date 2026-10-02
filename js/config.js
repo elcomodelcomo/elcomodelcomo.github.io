@@ -3,6 +3,7 @@
 // Rutas de los datos (relativas a index.html).
 export const RUTA_DATOS = "data/indice.json";               // lo genera herramientas/construir.mjs al publicar
 export const RUTA_COMPLETO = "data/portal_referencias.json"; // salida del cuaderno: CSV, descarga y respaldo
+export const RUTA_CORRECCIONES = "data/correcciones.json"; // correcciones a mano (ver js/limpieza.js)
 export const RUTA_MAPA = "data/mapa-mundo.json"; // generado con herramientas/generar-mapa.mjs
 
 // tipo del JSON → [nombre del filtro (plural), etiqueta junto al nombre (singular)]

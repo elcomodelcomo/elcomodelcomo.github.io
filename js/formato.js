@@ -10,6 +10,7 @@
 //   en el índice   [episodio, relevancia, 1 si es de la descripción]
 //   en las fichas  [video_id, minuto, relevancia, contexto, 1 si es de la descripción, enlace citado]
 //   en episodios   [id de la referencia, minuto, relevancia, contexto, 1 si es de la descripción, enlace citado]
+import { limpiar } from "./limpieza.js";
 import { compararAZ, segundos } from "./utils.js";
 
 export const PREFIJO_FICHAS = 2;
@@ -37,9 +38,13 @@ function recortar(lista, obligatorios) {
   return lista;
 }
 
-/** Parte la lista del cuaderno. Mismos datos → mismos ficheros, para que Git solo vea lo que cambia. */
-export function partir(lista) {
-  if (!Array.isArray(lista)) throw new Error("el JSON debe ser una lista de referencias");
+/**
+ * Limpia la lista del cuaderno (ver limpieza.js) y la parte. Mismos datos → mismos ficheros.
+ * Devuelve también la lista limpia (para la descarga y el CSV) y el informe de lo que se ha corregido.
+ */
+export function partir(original, correcciones = {}) {
+  if (!Array.isArray(original)) throw new Error("el JSON debe ser una lista de referencias");
+  const { lista, informe } = limpiar(original, correcciones);
 
   const titulos = new Map();
   for (const r of lista) for (const m of r.menciones || []) if (!titulos.has(m.video_id)) titulos.set(m.video_id, m.episodio || m.video_id);
@@ -77,7 +82,7 @@ export function partir(lista) {
   for (const ms of Object.values(porEpisodio)) ms.sort((a, b) => posicion(a) - posicion(b) || (a[0] < b[0] ? -1 : 1));
 
   const indice = { v: "", prefijo: PREFIJO_FICHAS, identificadas, episodios, refs };
-  return { indice, fichas, episodios: porEpisodio, imagenes };
+  return { indice, fichas, episodios: porEpisodio, imagenes, lista, informe };
 }
 
 /** Lista corta de una mención → el objeto que usan las plantillas. */

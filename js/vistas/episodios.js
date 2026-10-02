@@ -95,6 +95,7 @@ export function pintarEpisodios(lista, { contenedor }) {
     .filter((x) => !estado.episodio || x.ep.id === estado.episodio)
     .sort(COMPARADORES[ordenActual()] || COMPARADORES.titulo);
   const solo = resumenes.length === 1;
-  contenedor.innerHTML = resumenes.map((x) => episodioHTML(x, solo || estado.episodiosAbiertos.has(x.ep.id))).join("");
+  const aviso = `<p class="aviso-episodios">Solo aparecen los episodios con subtítulos en YouTube. Si echas en falta alguno, es que no los tiene activados.</p>`;
+  contenedor.innerHTML = aviso + resumenes.map((x) => episodioHTML(x, solo || estado.episodiosAbiertos.has(x.ep.id))).join("");
   for (const d of contenedor.querySelectorAll("details[open]")) rellenar(d);
 }

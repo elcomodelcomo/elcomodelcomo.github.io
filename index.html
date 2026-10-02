@@ -5,9 +5,10 @@
   <meta name="theme-color" content="#020402">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Entendí la referencia del Cómo: todo lo que se menciona en el podcast</title>
-  <meta name="description" content="Índice de las personas, libros, películas, países y demás referencias que salen en Cómo, el podcast de antiayuda, con enlace al minuto exacto.">
+  <meta name="description" content="Índice de las personas, libros, películas, países y demás referencias que salen en Cómo, el podcast de antiayuda, con enlace al minuto exacto. Incluye los episodios que tienen subtítulos en YouTube.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔖</text></svg>">
 
+  <!-- Lo que hace falta para la primera pantalla se pide cuanto antes, en paralelo -->
   <link rel="preload" href="data/indice.json" as="fetch" crossorigin>
   <link rel="preload" href="fuentes/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fuentes/instrument-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -73,7 +74,8 @@
   <footer class="wrap">
     <p>Web hecha por un oyente, sin relación oficial con el podcast; el logo pertenece a Cómo.
       Las referencias las ha sacado una IA leyéndose las transcripciones del
-      <a href="https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw" target="_blank" rel="noopener">canal de Cómo en YouTube</a>:
+      <a href="https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw" target="_blank" rel="noopener">canal de Cómo en YouTube</a>,
+      así que solo están los episodios con subtítulos activados:
       se ha tragado más horas de antiayuda que nadie y aun así no pilla todos los chistes.
       Las marcadas «por revisar» son las que ni ella tiene claras.
       <button class="enlace" data-accion="como">Cómo se ha hecho</button>.</p>
@@ -105,9 +107,9 @@
     <ol class="pasos">
       <li>
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="4" width="30" height="19"/><path d="M17 9v9l7-4.5z"/><path d="M5 29h30M5 35h20"/></svg>
-        <p class="cifra"><b data-cifra="episodios">…</b> episodios</p>
+        <p class="cifra"><b data-cifra="episodios">…</b> episodios con subtítulos</p>
         <h3>Transcripciones</h3>
-        <p>Se descargan los subtítulos automáticos de cada episodio del canal de YouTube, con sus tiempos.</p>
+        <p>Se descargan los subtítulos de cada episodio del canal de YouTube, con sus tiempos. Los episodios que no tienen subtítulos activados se quedan fuera: sin texto, no hay nada que leer.</p>
       </li>
       <li>
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 8h30M5 16h12M5 24h30M5 32h22"/><rect class="relleno" x="20" y="12" width="15" height="8"/></svg>
@@ -119,7 +121,7 @@
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="7" width="32" height="26"/><rect x="8" y="11" width="10" height="14"/><path d="M22 13h10M22 19h10M22 25h6M8 29h10"/></svg>
         <p class="cifra"><b data-cifra="identificadas">…</b> identificadas</p>
         <h3>Identificación</h3>
-        <p>Cada nombre se busca en Wikidata, TMDB, Open Library y MusicBrainz para saber qué es exactamente y sacar foto o portada. Si la coincidencia es dudosa, queda «por revisar».</p>
+        <p>Cada nombre se busca en Wikidata, TMDB, Open Library y MusicBrainz para saber qué es exactamente y sacar foto o portada. Si la coincidencia es dudosa, queda «por revisar». Lo que se cuela mal se va corrigiendo a mano.</p>
       </li>
       <li>
         <svg class="icono" viewBox="0 0 40 40" aria-hidden="true"><rect class="relleno" x="5" y="6" width="5" height="5"/><rect class="relleno" x="5" y="17.5" width="5" height="5"/><rect class="relleno" x="5" y="29" width="5" height="5"/><path d="M15 8.5h20M15 20h20M15 31.5h14"/></svg>

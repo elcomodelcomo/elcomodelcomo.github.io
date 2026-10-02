@@ -4,7 +4,7 @@
 // la ficha de una referencia al abrirla, las menciones de un episodio al desplegarlo y las imágenes
 // al abrir el mosaico o el mapa. Si no existe indice.json (en local, sin pasar por herramientas/construir.mjs)
 // o se carga un JSON desde el pie, se parte en el navegador con el mismo código y todo queda ya en memoria.
-import { RUTA_COMPLETO, RUTA_DATOS, RUTA_MAPA } from "./config.js";
+import { RUTA_COMPLETO, RUTA_CORRECCIONES, RUTA_DATOS, RUTA_MAPA } from "./config.js";
 import { leerMencion, partir, RELEVANCIAS } from "./formato.js";
 import { compararAZ, empiezaPorLetra, normalizar, separarTitulo, sinSignosIniciales } from "./utils.js";
 
@@ -70,9 +70,12 @@ function reiniciarFuente(indice) {
   fuente.episodios.clear();
 }
 
-/** Parte la lista en el navegador: todo queda en memoria y no se pide nada más. */
-function usarPartidos(lista) {
-  const { indice, fichas, episodios, imagenes } = partir(lista);
+/** Las correcciones a mano, si las hay (solo hacen falta cuando se parte el JSON en el navegador). */
+const correccionesPublicadas = () => pedirJSON(RUTA_CORRECCIONES).catch(() => ({}));
+
+/** Limpia y parte la lista en el navegador: todo queda en memoria y no se pide nada más. */
+function usarPartidos(original, correcciones) {
+  const { indice, fichas, episodios, imagenes, lista } = partir(original, correcciones);
   reiniciarFuente(indice);
   fuente.lista = lista;
   for (const [p, grupo] of Object.entries(fichas)) fuente.fichas.set(p, Promise.resolve(grupo));
@@ -88,15 +91,18 @@ export async function cargarDatos() {
     indice = await pedirJSON(RUTA_DATOS);
   } catch (errIndice) {
     // Sin índice publicado se usa el JSON completo: pesa unas cuatro veces más, pero funciona igual.
-    try { return usarPartidos(await pedirJSON(RUTA_COMPLETO)); }
+    try {
+      const [lista, correcciones] = await Promise.all([pedirJSON(RUTA_COMPLETO), correccionesPublicadas()]);
+      return usarPartidos(lista, correcciones);
+    }
     catch { throw errIndice; }
   }
   reiniciarFuente(indice);
   return prepararIndice(indice);
 }
 
-/** Lista elegida con el selector de archivos del pie. */
-export const usarLista = (lista) => usarPartidos(lista);
+/** Lista elegida con el selector de archivos del pie (se le aplican las mismas correcciones). */
+export const usarLista = async (lista) => usarPartidos(lista, await correccionesPublicadas());
 
 /** Completa una referencia con su ficha (enlaces, fechas, menciones con minuto y contexto). */
 export async function completarReferencia(r) {

@@ -3,6 +3,7 @@
 Índice web de las referencias (personas, libros, películas, países…) que se mencionan en
 [Cómo, el podcast de antiayuda](https://www.youtube.com/channel/UCu1hOYlEjV1bvE1_wtO_8zw).
 Los datos los genera el cuaderno de `cuaderno/` (sección 8, «Exportación para el portal»).
+Solo entran los episodios con subtítulos en YouTube: las referencias se sacan de las transcripciones.
 
 Web hecha por un oyente, sin relación oficial con el podcast. El logo (`img/logo.png`) pertenece a Cómo.
 
@@ -21,6 +22,7 @@ img/logo.png                Logo del podcast con fondo transparente
 fuentes/                    Big Shoulders Display e Instrument Sans (OFL), alojadas aquí
 data/
   portal_referencias.json   Salida del cuaderno. Sustituirlo actualiza la web
+  correcciones.json         Correcciones a mano que se aplican al publicar (ver «Corregir datos»)
   mapa-mundo.json           Siluetas de los países ya proyectadas (ver herramientas/)
 css/
   main.css                  Hoja que enlaza index.html; importa todas las demás
@@ -30,6 +32,7 @@ js/
   main.js                   Arranque y eventos
   config.js                 Tipos, órdenes por vista, encaje de imágenes, rutas
   formato.js                Cómo se parte el JSON en índice, fichas y episodios (web y Node)
+  limpieza.js               Junta repetidas, corrige tipos y aplica data/correcciones.json (web y Node)
   datos.js                  Carga del índice y de lo demás bajo demanda (sin DOM)
   filtros.js                Estado de la interfaz y filtrado (sin DOM)
   imagenes.js               Qué imagen usar y qué hacer si falla
@@ -61,6 +64,26 @@ se guarda en el repositorio: se crean en cada publicación.
 
 Si no hay `indice.json` (por ejemplo, en local sin construir), la web carga el JSON completo
 y lo parte en el navegador con el mismo código. Funciona igual, solo que tarda más en arrancar.
+
+## Corregir datos
+
+Al publicar, `js/limpieza.js` limpia lo que sale del cuaderno antes de partirlo:
+
+- **Junta las referencias repetidas**: las que comparten elemento de Wikidata o ficha de TMDB,
+  MusicBrainz u Open Library («Estados Unidos» y «Estados Unidos de América», «Catar» y «Qatar»),
+  y las de persona y artista musical con el mismo nombre. Se queda el nombre más mencionado, el
+  tipo que suma más menciones y la ficha más fiable.
+- **Pasa a persona los «artistas musicales» que no lo son** según su propia descripción
+  (futbolista, arquitecto, escritor…).
+- **Aplica `data/correcciones.json`**: descartar, cambiar campos (tipo, nombre, quitar una ficha
+  mal identificada…) y fusionar. Las instrucciones están dentro del propio fichero. Se puede editar
+  desde GitHub con el icono del lápiz; al guardar se vuelve a publicar.
+
+El registro de cada publicación (pestaña «Actions» → el último «Publicar la web» → paso «Construir la web»)
+lista lo que se ha corregido solo y las fusiones con nombres distintos, que son las que conviene revisar:
+si dos cosas distintas se han juntado, es que una está mal identificada y hay que quitarle la ficha.
+
+La descarga en JSON y CSV es la versión ya corregida.
 
 ## Imágenes
 

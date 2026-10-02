@@ -3,7 +3,8 @@
 //   node herramientas/construir.mjs [carpeta de salida, por defecto _site]
 //
 // 1. Copia la web a la carpeta de salida (sin el cuaderno ni las herramientas).
-// 2. Parte data/portal_referencias.json en data/indice.json, imagenes.json, fichas/ y episodios/.
+// 2. Limpia data/portal_referencias.json con data/correcciones.json (ver js/limpieza.js)
+//    y lo parte en data/indice.json, imagenes.json, fichas/ y episodios/.
 // 3. Si esbuild está instalado, junta y comprime el JavaScript y el CSS en un fichero de cada.
 //
 // Para probar en local el resultado: cd _site && python -m http.server 8000
@@ -25,8 +26,12 @@ for (const nombre of readdirSync(raiz)) {
 }
 
 // --- Datos ------------------------------------------------------------------
-const lista = JSON.parse(readFileSync(join(raiz, "data/portal_referencias.json"), "utf8"));
-const { indice, fichas, episodios, imagenes } = partir(lista);
+const leer = (ruta) => JSON.parse(readFileSync(join(raiz, ruta), "utf8"));
+const original = leer("data/portal_referencias.json");
+let correcciones = {};
+try { correcciones = leer("data/correcciones.json"); }
+catch (err) { if (err.code !== "ENOENT") throw new Error(`data/correcciones.json no es un JSON válido: ${err.message}`); }
+const { indice, fichas, episodios, imagenes, lista, informe } = partir(original, correcciones);
 
 // La versión cambia si cambia cualquier fichero de datos. La web la añade a las URLs
 // de fichas y episodios, así nunca mezcla un índice nuevo con detalles viejos de la caché.
@@ -39,10 +44,19 @@ const escribir = (ruta, obj) => {
 };
 escribir(join(datos, "indice.json"), indice);
 escribir(join(datos, "imagenes.json"), imagenes);
+// La descarga (JSON y CSV) es la versión ya limpia, la misma que se ve en la web.
+writeFileSync(join(datos, "portal_referencias.json"), JSON.stringify(lista, null, 1));
 for (const [prefijo, grupo] of Object.entries(fichas)) escribir(join(datos, "fichas", `${prefijo}.json`), grupo);
 for (const [id, ms] of Object.entries(episodios)) escribir(join(datos, "episodios", `${id}.json`), ms);
 
-console.log(`Datos: ${indice.refs.length} referencias, ${indice.episodios.length} episodios, ` +
+// Informe de limpieza en el registro de GitHub Actions, para revisar lo que se ha corregido solo.
+console.log(`\nLimpieza: ${original.length} referencias del cuaderno → ${lista.length} publicadas.`);
+for (const a of informe.avisos) console.log(`  ⚠ correcciones.json: ${a}`);
+if (informe.retipados.length) console.log(`  ${informe.retipados.length} «artistas musicales» pasan a persona: ${informe.retipados.join("; ")}`);
+const dudosas = informe.fusionadas.filter((f) => f.revisar);
+console.log(`  ${informe.fusionadas.length} grupos de referencias repetidas juntados. Con nombres distintos (revisa que sean lo mismo):`);
+for (const f of dudosas) console.log(`    ${f.queda} ← ${f.juntas.join(" + ")}`);
+console.log(`\nDatos: ${indice.refs.length} referencias, ${indice.episodios.length} episodios, ` +
   `${Object.keys(fichas).length} ficheros de fichas (versión ${indice.v}).`);
 
 // --- JavaScript y CSS en un solo fichero cada uno ---------------------------

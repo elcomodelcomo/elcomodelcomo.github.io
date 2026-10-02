@@ -156,7 +156,7 @@ document.addEventListener("keydown", (e) => {
 dom.archivo.addEventListener("change", async (e) => {
   const archivo = e.target.files[0];
   if (!archivo) return;
-  try { usarDatos(usarLista(await leerArchivo(archivo))); }
+  try { usarDatos(await usarLista(await leerArchivo(archivo))); }
   catch (err) { alert(`No se ha podido cargar el archivo: ${err.message}.`); }
   e.target.value = "";
 });

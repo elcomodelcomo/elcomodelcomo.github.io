@@ -1,5 +1,5 @@
 // Punto de entrada: carga los datos y conecta los eventos de la interfaz.
-import { cargarDatos, completarReferencia, leerArchivo, listaCompleta, usarLista } from "./datos.js";
+import { cargarDatos, completarReferencia, listaCompleta } from "./datos.js";
 import { buscarReferencia, datos, estado, reiniciarFiltros, volverAlEstadoInicial } from "./filtros.js";
 import { vigilarImagenesRotas } from "./imagenes.js";
 import { dom, pintar, pintarCabecera, pintarError } from "./render.js";
@@ -152,15 +152,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// --- Cargar otro JSON desde el ordenador --------------------------------
-dom.archivo.addEventListener("change", async (e) => {
-  const archivo = e.target.files[0];
-  if (!archivo) return;
-  try { usarDatos(await usarLista(await leerArchivo(archivo))); }
-  catch (err) { alert(`No se ha podido cargar el archivo: ${err.message}.`); }
-  e.target.value = "";
-});
-
 // --- Arranque ------------------------------------------------------------
 try {
   usarDatos(await cargarDatos());
@@ -168,7 +159,7 @@ try {
   const local = location.protocol === "file:";
   pintarError(
     local
-      ? "Abierta como archivo local, el navegador no deja leer los datos. Arranca un servidor en la carpeta (python -m http.server) o carga el JSON desde el pie de página."
-      : `No se han podido cargar las referencias: ${err.message}. Carga un portal_referencias.json desde el pie de página.`
+      ? "Abierta como archivo local, el navegador no deja leer los datos. Arranca un servidor en la carpeta (python -m http.server)."
+      : `No se han podido cargar las referencias: ${err.message}. Prueba a recargar la página dentro de un rato.`
   );
 }

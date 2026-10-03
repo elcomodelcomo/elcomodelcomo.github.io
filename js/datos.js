@@ -2,8 +2,8 @@
 //
 // Al entrar solo se descarga data/indice.json. Lo demás se pide cuando hace falta y se guarda en memoria:
 // la ficha de una referencia al abrirla, las menciones de un episodio al desplegarlo y las imágenes
-// al abrir el mosaico o el mapa. Si no existe indice.json (en local, sin pasar por herramientas/construir.mjs)
-// o se carga un JSON desde el pie, se parte en el navegador con el mismo código y todo queda ya en memoria.
+// al abrir el mosaico o el mapa. Si no existe indice.json (en local, sin pasar por herramientas/construir.mjs),
+// el JSON completo se parte en el navegador con el mismo código y todo queda ya en memoria.
 import { RUTA_COMPLETO, RUTA_CORRECCIONES, RUTA_DATOS, RUTA_MAPA } from "./config.js";
 import { leerMencion, partir, RELEVANCIAS } from "./formato.js";
 import { compararAZ, empiezaPorLetra, normalizar, separarTitulo, sinSignosIniciales } from "./utils.js";
@@ -101,9 +101,6 @@ export async function cargarDatos() {
   return prepararIndice(indice);
 }
 
-/** Lista elegida con el selector de archivos del pie (se le aplican las mismas correcciones). */
-export const usarLista = async (lista) => usarPartidos(lista, await correccionesPublicadas());
-
 /** Completa una referencia con su ficha (enlaces, fechas, menciones con minuto y contexto). */
 export async function completarReferencia(r) {
   if (r._completa) return r;
@@ -146,17 +143,4 @@ let mapaPendiente = null;
 export function descargarMapa() {
   mapaPendiente ||= pedirJSON(RUTA_MAPA).catch((err) => { mapaPendiente = null; throw err; });
   return mapaPendiente;
-}
-
-/** Lee un JSON elegido por el usuario con el selector de archivos. */
-export function leerArchivo(archivo) {
-  return new Promise((ok, ko) => {
-    const lector = new FileReader();
-    lector.onload = () => {
-      try { ok(JSON.parse(lector.result)); }
-      catch { ko(new Error(`${archivo.name} no es un JSON válido`)); }
-    };
-    lector.onerror = () => ko(new Error(`no se ha podido leer ${archivo.name}`));
-    lector.readAsText(archivo);
-  });
 }

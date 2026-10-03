@@ -5,11 +5,19 @@ let actual = null; // { contenedor, asegurar(letra) } mientras el índice está 
 
 export const ancla = (l) => `l-${l === "#" ? "num" : l}`;
 
+/** En móvil la barra se desliza: el fundido de la derecha solo mientras quedan letras por ver. */
+function avisarDeMas() {
+  barra.classList.toggle("hay-mas", barra.scrollLeft + barra.clientWidth < barra.scrollWidth - 2);
+}
+barra.addEventListener("scroll", avisarDeMas, { passive: true });
+addEventListener("resize", avisarDeMas);
+
 /** La vista del índice la activa con su contenedor; las demás vistas la apagan con null. */
 export function activarLetras(config) {
   actual = config;
   if (!config) barra.innerHTML = "";
   else marcarActual();
+  avisarDeMas();
 }
 
 /** Pinta hasta la letra (si el índice A–Z está activo). Para saltar a una entrada concreta. */

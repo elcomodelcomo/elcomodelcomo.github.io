@@ -28,7 +28,7 @@ export function pintarIndice(lista, { contenedor, barraLetras }) {
   const presentes = LETRAS.filter((l) => grupos[l]);
 
   barraLetras.innerHTML = LETRAS.map((l) =>
-    grupos[l] ? `<a href="#${ancla(l)}" data-letra="${l}">${l}</a>` : l === "#" ? "" : `<span aria-hidden="true">${l}</span>`
+    grupos[l] ? `<a href="#${ancla(l)}" data-letra="${l}">${l}</a>` : `<span aria-hidden="true">${l}</span>`
   ).join("");
 
   // Las secciones están desde el principio, vacías y ocultas, y se van llenando en orden.

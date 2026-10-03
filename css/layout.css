@@ -36,7 +36,7 @@ header.top h1 img{display:block;width:clamp(150px,22vw,250px);height:auto}
     margin-left:-1.25rem;margin-right:-1.25rem;padding:calc(.2rem + env(safe-area-inset-top,0px)) 1.25rem .2rem}
   .letters::-webkit-scrollbar{display:none}
   /* Un leve fundido a la derecha avisa de que hay más letras deslizando */
-  .letters{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
+  .letters.hay-mas{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
   .letters span{display:none}
   .letters a{display:grid;place-items:center;min-width:2.6rem;min-height:2.75rem;padding:0;font-size:1.65rem}
 }

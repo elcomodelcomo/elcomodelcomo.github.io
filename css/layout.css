@@ -2,8 +2,9 @@
 header.top{display:grid;grid-template-columns:auto 1fr;gap:1.5rem 2.5rem;align-items:center;padding-top:3rem;padding-bottom:2rem}
 header.top h1{margin:0;line-height:0}
 header.top h1 a{display:inline-block}
-/* El logo crece con la pantalla hasta llenar casi toda la altura del texto de al lado, y va centrado con él */
-header.top h1 img{display:block;width:clamp(170px,calc(24vw + 80px),400px);height:auto}
+/* El logo crece con la pantalla hasta unos 4/5 de la altura del texto de al lado, y va centrado con él.
+   Es un SVG (img/logo.svg, trazado de logo.png), así que se ve nítido a cualquier tamaño. */
+header.top h1 img{display:block;width:clamp(160px,calc(18vw + 60px),280px);height:auto}
 .como-enlace{margin:.6rem 0 0;font-size:.95rem}
 .lema{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.5vw,4.2rem);line-height:.9;margin:0 0 .8rem;max-width:14ch}
 #intro{margin:0;max-width:38rem;color:var(--muted)}

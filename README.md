@@ -5,7 +5,7 @@
 Los datos los genera el cuaderno de `cuaderno/` (sección 8, «Exportación para el portal»).
 Solo entran los episodios con subtítulos en YouTube: las referencias se sacan de las transcripciones.
 
-Web hecha por un oyente, sin relación oficial con el podcast. El logo (`img/logo.png`) pertenece a Cómo.
+Web hecha por un comower, sin relación oficial con el podcast. El logo (`img/logo.svg` e `img/logo.png`) pertenece a Cómo.
 
 ## Vistas
 
@@ -18,7 +18,8 @@ Web hecha por un oyente, sin relación oficial con el podcast. El logo (`img/log
 
 ```
 index.html                  Solo estructura
-img/logo.png                Logo del podcast con fondo transparente
+img/logo.svg                Logo del podcast en vector (trazado de logo.png): nítido a cualquier tamaño
+img/logo.png                Logo original con fondo transparente
 fuentes/                    Big Shoulders Display e Instrument Sans (OFL), alojadas aquí
 data/
   portal_referencias.json   Salida del cuaderno. Sustituirlo actualiza la web

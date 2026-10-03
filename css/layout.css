@@ -1,8 +1,9 @@
 /* Estructura de la página: cabecera, barra de filtros, letras, pie */
-header.top{display:grid;grid-template-columns:auto 1fr;gap:1.5rem 2.5rem;align-items:end;padding-top:3rem;padding-bottom:2rem}
+header.top{display:grid;grid-template-columns:auto 1fr;gap:1.5rem 2.5rem;align-items:center;padding-top:3rem;padding-bottom:2rem}
 header.top h1{margin:0;line-height:0}
 header.top h1 a{display:inline-block}
-header.top h1 img{display:block;width:clamp(150px,22vw,250px);height:auto}
+/* El logo crece con la pantalla hasta llenar casi toda la altura del texto de al lado, y va centrado con él */
+header.top h1 img{display:block;width:clamp(170px,calc(24vw + 80px),400px);height:auto}
 .como-enlace{margin:.6rem 0 0;font-size:.95rem}
 .lema{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.5vw,4.2rem);line-height:.9;margin:0 0 .8rem;max-width:14ch}
 #intro{margin:0;max-width:38rem;color:var(--muted)}
@@ -10,6 +11,7 @@ header.top h1 img{display:block;width:clamp(150px,22vw,250px);height:auto}
 #intro .aviso{display:block;margin-top:.5rem;font-size:.92rem}
 @media (max-width:640px){
   header.top{grid-template-columns:1fr;padding-top:2rem}
+  header.top h1 img{width:150px}
   .seg{width:100%}
   .seg .btn{flex:1 1 0;padding-left:.3rem;padding-right:.3rem;white-space:nowrap}
 }

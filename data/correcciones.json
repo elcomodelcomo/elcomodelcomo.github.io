@@ -44,7 +44,6 @@
     { "nombre": "DBstep Bangá", "tipo": "persona" },
     { "nombre": "Lara y Amar", "tipo": "persona" },
     { "nombre": "Humppas", "tipo": "disco" },
-    { "nombre": "Alaska", "si_tipo": "artista_musical", "quitar_ficha": true },
     { "nombre": "Bustamante", "si_tipo": "artista_musical", "quitar_ficha": true },
     { "nombre": "The Black Eyed Peas", "quitar_ficha": true },
     { "nombre": "Sexy Red", "quitar_ficha": true },
@@ -372,7 +371,28 @@
     { "nombre": "Eduardo Saldaña", "si_ficha": "Q139857645", "revisar": false },
     { "nombre": "Ana Rosa Quintana", "si_ficha": "Q271652", "revisar": false },
     { "nombre": "Ana Obregón", "si_ficha": "Q975692", "revisar": false },
-    { "nombre": "Anuario musical", "descripcion": "Anuario Musical es una newsletter mensual de música: cada mes envían cuatro canciones recomendadas con un breve texto que explica la elección, usando la música como excusa para hablar de cualquier cosa (incluido el \"apocalipsis\" del mundo actual).  La crean Ane Guerra (periodista y podcaster; country, psicodelia, guitarras distorsionadas) y C. Navarro (historiador y podcaster; obseso de Dolly Parton, del metal extremo a la rumba).", "url_externa": "https://anuariomusical.substack.com/", "revisar": false }
+    { "nombre": "Anuario musical", "descripcion": "Anuario Musical es una newsletter mensual de música: cada mes envían cuatro canciones recomendadas con un breve texto que explica la elección, usando la música como excusa para hablar de cualquier cosa (incluido el \"apocalipsis\" del mundo actual).  La crean Ane Guerra (periodista y podcaster; country, psicodelia, guitarras distorsionadas) y C. Navarro (historiador y podcaster; obseso de Dolly Parton, del metal extremo a la rumba).", "url_externa": "https://anuariomusical.substack.com/", "revisar": false },
+    { "nombre": "Volodímir Zelenski", "si_ficha": "Q3874799", "tipo": "persona", "revisar": false },
+    { "nombre": "Martín Lutero", "si_ficha": "Q9554", "tipo": "persona", "revisar": false },
+    { "nombre": "Madre Teresa de Calcuta", "si_ficha": "Q30547", "tipo": "persona", "revisar": false },
+    { "nombre": "Leonardo da Vinci", "si_ficha": "Q762", "tipo": "persona", "revisar": false },
+    { "nombre": "Ignatius Farray", "si_ficha": "Q5913690", "tipo": "persona", "revisar": false },
+    { "nombre": "Iggy Rubín", "si_ficha": "Q63108523", "revisar": false },
+    { "nombre": "Chiquito de la Calzada", "si_ficha": "Q380662", "tipo": "persona", "revisar": false },
+    { "nombre": "Chiquita Brands International", "si_ficha": "Q1074666", "revisar": false },
+    { "nombre": "Kanye West", "si_ficha": "Q15935", "revisar": false },
+    { "nombre": "Drake", "si_ficha": "Q33240", "revisar": false },
+    { "nombre": "Lady Gaga", "si_ficha": "Q19848", "revisar": false },
+    { "nombre": "Shakira", "si_ficha": "Q34424", "revisar": false },
+    { "nombre": "Alba Reche", "si_ficha": "Q60029545", "revisar": false },
+    { "nombre": "David Guetta", "si_ficha": "Q8298", "revisar": false },
+    { "nombre": "Skrillex", "si_ficha": "Q19004", "revisar": false },
+    { "nombre": "The Weeknd", "si_ficha": "Q2121062", "revisar": false },
+    { "nombre": "Alaska", "si_tipo": "artista_musical", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q1199942", "wikidata": "Q1199942", "descripcion": "cantante mexicana-española", "url_externa": "https://es.wikipedia.org/wiki/Alaska_(cantante)", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Alaska_(2016)_(30609549320).jpg?width=300", "revisar": false },
+    { "nombre": "Beyoncé", "si_ficha": "Q55365344", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q36153", "wikidata": "Q36153", "descripcion": "cantante, compositora, productora, actriz y empresaria estadounidense", "url_externa": "https://es.wikipedia.org/wiki/Beyonc%C3%A9", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Beyonc%C3%A9_-_Tottenham_Hotspur_Stadium_-_1st_June_2023_(10_of_118)_(52946364598)_(best_crop).jpg?width=300", "revisar": false },
+    { "nombre": "Bustamante", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q953172", "wikidata": "Q953172", "descripcion": "cantante y compositor español", "url_externa": "https://es.wikipedia.org/wiki/David_Bustamante", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/David_Bustamante_2006.jpg?width=300", "nombre_nuevo": "David Bustamante", "revisar": false },
+    { "nombre": "Judas Priest", "si_ficha": "6b335658-22c8-485d-93de-0bc29a1d0349", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q83468", "wikidata": "Q83468", "descripcion": "banda británica de heavy metal", "url_externa": "https://es.wikipedia.org/wiki/Judas_Priest", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Judas_Priest_-_Wacken_Open_Air_2018_01.jpg?width=300", "revisar": false },
+    { "nombre": "Tyler, The Creator", "si_ficha": "Q167635", "revisar": false }
   ],
 
   "fusionar": [
@@ -381,6 +401,7 @@
     { "de": "AuronPlay", "en": "Auron" },
     { "de": "Eduardo Naudín", "en": "Edu Grey Trash" },
     { "de": "ABC", "en": "ABC de Sevilla" },
-    { "de": "Abdelfatahibi al Sisi", "en": "Abdelfatah al Sisi" }
+    { "de": "Abdelfatahibi al Sisi", "en": "Abdelfatah al Sisi" },
+    { "de": "Iggi Ruin", "en": "Iggy Rubín" }
   ]
 }

@@ -63,7 +63,6 @@
     { "nombre": "Líbano", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q822", "wikidata": "Q822", "descripcion": "país de Asia Occidental", "url_externa": "https://es.wikipedia.org/wiki/L%C3%ADbano", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Flag_of_Lebanon.svg?width=300", "iso": "LB", "revisar": false },
     { "nombre": "Grecia", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q41", "wikidata": "Q41", "descripcion": "país de Europa del Sur", "url_externa": "https://es.wikipedia.org/wiki/Grecia", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Greek_Independence_1821.svg?width=300", "iso": "GR", "revisar": false },
     { "nombre": "SpaceX", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q193701", "wikidata": "Q193701", "descripcion": "compañía estadounidense de lanzamiento y transporte espacial", "url_externa": "https://es.wikipedia.org/wiki/SpaceX", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Entrance_to_SpaceX_headquarters.jpg?width=300", "revisar": false },
-    { "nombre": "Donald Trump", "si_ficha": "Q22686", "revisar": false },
     { "nombre": "Emmanuel Macron", "si_ficha": "Q3052772", "revisar": false },
     { "nombre": "Kamala Harris", "si_ficha": "Q10853588", "revisar": false },
     { "nombre": "Jeffrey Epstein", "si_ficha": "Q135293605", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q2904131", "wikidata": "Q2904131", "descripcion": "financiero y criminal sexual estadounidense", "url_externa": "https://es.wikipedia.org/wiki/Jeffrey_Epstein", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Epstein_2013_mugshot.jpg?width=300", "revisar": false },
@@ -92,7 +91,6 @@
     { "nombre": "Estados Unidos", "si_ficha": "Q30", "revisar": false },
     { "nombre": "España", "si_ficha": "Q29", "revisar": false },
     { "nombre": "Israel", "si_ficha": "Q801", "revisar": false },
-    { "nombre": "China", "si_ficha": "Q148", "revisar": false },
     { "nombre": "Rusia", "si_ficha": "Q159", "revisar": false },
     { "nombre": "Segunda Guerra Mundial", "si_ficha": "Q362", "revisar": false },
     { "nombre": "Ucrania", "si_ficha": "Q212", "revisar": false },
@@ -367,7 +365,14 @@
     { "nombre": "La araña sagrada", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q111600223", "wikidata": "Q111600223", "descripcion": "película del 2022 dirigida por Ali Abbasi", "url_externa": "https://es.wikipedia.org/wiki/Holy_Spider", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/%D8%B9%D9%86%D9%83%D8%A8%D9%88%D8%AA_%D9%85%D9%82%D8%AF%D8%B3.svg?width=300", "revisar": false },
     { "nombre": "South Park", "si_ficha": "movie/874299", "revisar": false },
     { "nombre": "Biblia", "quitar_ficha": true, "fuente": "wikidata", "id_externo": "Q1845", "wikidata": "Q1845", "descripcion": "colección canónica de textos considerados escrituras religiosas en el judaísmo, el cristianismo, el islam y otras religiones", "url_externa": "https://es.wikipedia.org/wiki/Biblia", "imagen": "https://commons.wikimedia.org/wiki/Special:FilePath/Gutenberg_Bible%2C_Lenox_Copy%2C_New_York_Public_Library%2C_2009._Pic_01.jpg?width=300", "revisar": false },
-    { "nombre": "Harry Potter", "si_ficha": "/works/OL82560W", "revisar": false }
+    { "nombre": "Harry Potter", "si_ficha": "/works/OL82560W", "revisar": false },
+    { "nombre": "Donald Trump", "si_ficha": "Q22686", "revisar": false },
+    { "nombre": "Ana Iris Simón", "si_ficha": "Q107723177", "revisar": false },
+    { "nombre": "La hora chanante", "si_ficha": "tv/13581", "revisar": false },
+    { "nombre": "Eduardo Saldaña", "si_ficha": "Q139857645", "revisar": false },
+    { "nombre": "Ana Rosa Quintana", "si_ficha": "Q271652", "revisar": false },
+    { "nombre": "Ana Obregón", "si_ficha": "Q975692", "revisar": false },
+    { "nombre": "Anuario musical", "revisar": false }
   ],
 
   "fusionar": [

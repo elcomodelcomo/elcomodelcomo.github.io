@@ -372,7 +372,7 @@
     { "nombre": "Eduardo Saldaña", "si_ficha": "Q139857645", "revisar": false },
     { "nombre": "Ana Rosa Quintana", "si_ficha": "Q271652", "revisar": false },
     { "nombre": "Ana Obregón", "si_ficha": "Q975692", "revisar": false },
-    { "nombre": "Anuario musical", "revisar": false }
+    { "nombre": "Anuario musical", "descripcion": "Anuario Musical es una newsletter mensual de música: cada mes envían cuatro canciones recomendadas con un breve texto que explica la elección, usando la música como excusa para hablar de cualquier cosa (incluido el \"apocalipsis\" del mundo actual).  La crean Ane Guerra (periodista y podcaster; country, psicodelia, guitarras distorsionadas) y C. Navarro (historiador y podcaster; obseso de Dolly Parton, del metal extremo a la rumba).", "url_externa": "https://anuariomusical.substack.com/", "revisar": false }
   ],
 
   "fusionar": [
